@@ -115,6 +115,22 @@
             overflow: hidden;
             border-radius: 8px;
         }
+        /* AI Animation Styling */
+        .ai-canvas-bg {
+            position: absolute;
+            z-index: 1;
+            left: 0; top: 0; width: 100%; height: 100%;
+            pointer-events: none;
+        }
+        .ai-canvas-float {
+            position: absolute;
+            z-index: 1;
+            left: 0; top: 0; width: 100%; height: 100%;
+        }
+        .interface-inner-content {
+            position: relative;
+            z-index: 2;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -153,9 +169,11 @@
                     <div class="relative">
                         <div class="w-80 h-80 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 blur-3xl absolute -top-10 -left-10"></div>
                         <div class="w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 blur-3xl absolute -bottom-10 -right-10"></div>
-                        <div class="neo-card neo-border p-4 relative">
-                            <div class="w-full h-64 bg-gray-800 rounded-md flex items-center justify-center">
-                                <span class="text-2xl font-bold gradient-text">FUTURISTIC INTERFACE</span>
+                        <div class="neo-card neo-border p-4 relative overflow-hidden" style="width: 320px; height: 256px;">
+                            <!-- Canvas AI Animation -->
+                            <canvas id="aiCanvas" width="320" height="256" class="ai-canvas-bg"></canvas>
+                            <div class="interface-inner-content flex items-center justify-center w-full h-full">
+                                <span class="text-2xl font-bold gradient-text z-20 text-shadow-lg">AI-POWERED INTERFACE</span>
                             </div>
                         </div>
                     </div>
@@ -306,6 +324,22 @@
         </div>
     </section>
 
+    <!-- Embedded YouTube Video (no placeholder text) -->
+    <section class="py-12 px-6 bg-gray-800 bg-opacity-70">
+      <div class="container mx-auto flex flex-col items-center">
+        <div class="video-container w-full max-w-screen-md mx-auto aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+          <iframe
+            class="w-full h-64 md:h-96 rounded-md"
+            src="https://www.youtube.com/embed/8ySHH6LuNe4"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
     <!-- Projects Showcase -->
     <section id="projects" class="py-24 px-6 bg-gray-900 bg-opacity-50">
         <div class="container mx-auto">
@@ -360,21 +394,6 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="mt-16">
-                <div class="neo-card p-8">
-                    <h3 class="text-2xl font-bold mb-4">Featured <span class="gradient-text">AI Production</span></h3>
-                    <div class="video-container">
-                        <div class="w-full h-96 bg-gray-800 rounded-md flex items-center justify-center">
-                            <span class="text-2xl font-bold gradient-text">AI MOVIE TRAILER PLACEHOLDER</span>
-                            <!-- Replace with actual video when available -->
-                            <!-- <video controls playsinline webkit-playsinline class="w-full h-full object-cover">
-                                <source src="your_video_url_here" type="video/mp4">
-                            </video> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -389,9 +408,9 @@
                     <div class="mb-8">
                         <h3 class="text-2xl font-bold mb-4">Connect With Us</h3>
                         <div class="flex flex-col space-y-4">
-                            <a href="mailto:tnlbusinesss@gmail.com" class="flex items-center text-gray-300 hover:text-white transition">
+                            <a href="/cdn-cgi/l/email-protection#ef9b81838d9a9c86818a9c9c9caf88828e8683c18c8082" class="flex items-center text-gray-300 hover:text-white transition">
                                 <i class="fas fa-envelope text-blue-400 mr-4 w-6"></i>
-                                <span>tnlbusinesss@gmail.com</span>
+                                <span><span class="__cf_email__" data-cfemail="bbcfd5d7d9cec8d2d5dec8c8c8fbdcd6dad2d795d8d4d6">[email&#160;protected]</span></span>
                             </a>
                             <a href="https://www.youtube.com/@T3isKey/featured" target="_blank" class="flex items-center text-gray-300 hover:text-white transition">
                                 <i class="fab fa-youtube text-blue-400 mr-4 w-6"></i>
@@ -412,7 +431,7 @@
                                 <p>AI Store</p>
                             </a>
                             <a href="https://crazycryptobudz.carrd.co/" target="_blank" class="neo-card p-4 text-center hover:glow transition">
-                                <i class="fas fa-id-card text-2xl mb-2 text-blue-400"></i>
+                                <i class="fas fa-brain text-2xl mb-2 text-blue-400"></i>
                                 <p>Crazy Crypto Budz</p>
                             </a>
                             <a href="https://www.youtube.com/@T3isKey/featured" target="_blank" class="neo-card p-4 text-center hover:glow transition">
@@ -493,6 +512,7 @@
         </div>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         // Add smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -503,6 +523,79 @@
                 });
             });
         });
+
+        // --- AI Futuristic Animation Effect ---
+        // Neural-node animation, simple and light-weight for header box
+        const canvas = document.getElementById("aiCanvas");
+        if (canvas && canvas.getContext) {
+            const ctx = canvas.getContext("2d");
+            const W = canvas.width, H = canvas.height;
+            // Generate particles
+            const particles = [];
+            const links = [];
+            const PARTICLE_COUNT = 14;
+            const LINK_DENSITY = 0.275;
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6,
+                    r: Math.random() * 3 + 2
+                });
+            }
+            // Create a few links between particles for a network look
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                for (let j = i+1; j < PARTICLE_COUNT; j++) {
+                    if (Math.random() < LINK_DENSITY) {
+                        links.push([i, j]);
+                    }
+                }
+            }
+            function animate() {
+                ctx.clearRect(0,0, W,H);
+                // Draw links
+                for (let l = 0; l < links.length; l++) {
+                    const [i, j] = links[l];
+                    const pi = particles[i], pj = particles[j];
+                    ctx.save();
+                    ctx.strokeStyle = "rgba(0,240,255,0.22)";
+                    ctx.shadowColor = "#00f0ff";
+                    ctx.shadowBlur = 10;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(pi.x, pi.y);
+                    ctx.lineTo(pj.x, pj.y);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+                // Draw particles
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    ctx.save();
+                    ctx.shadowBlur = 16; ctx.shadowColor = "#86fde8";
+                    var g = ctx.createRadialGradient(p.x, p.y, 1, p.x, p.y, p.r);
+                    g.addColorStop(0,"#66fff3");
+                    g.addColorStop(1,"#0071FF");
+                    ctx.fillStyle = g;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.restore();
+                }
+                // Animate particles
+                for (let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    // Bounce with wall
+                    if (p.x < 10 || p.x > W-10) p.vx *= -1;
+                    if (p.y < 10 || p.y > H-10) p.vy *= -1;
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
     </script>
 </body>
 </html>
