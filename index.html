@@ -131,6 +131,34 @@
             position: relative;
             z-index: 2;
         }
+        .embed-gradient-box {
+            background: linear-gradient(135deg, #2e1a6d, #0088cc);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+        }
+        .embed-gradient-box iframe, 
+        .embed-gradient-box video,
+        .embed-gradient-box .responsive-embed {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: none;
+            border-radius: 12px;
+        }
+        .responsive-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        .responsive-embed iframe,
+        .responsive-embed video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -189,7 +217,6 @@
                 <h2 class="text-4xl font-bold mb-4">Our <span class="gradient-text">Services</span></h2>
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto">Cutting-edge solutions powered by AI to automate your business and maximize efficiency.</p>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Website Development -->
                 <div class="neo-card p-8 flex flex-col h-full">
@@ -212,7 +239,12 @@
                             <span>SEO optimization built-in</span>
                         </li>
                     </ul>
-                    <button class="btn-primary self-start">Learn More</button>
+                    <a 
+                        class="btn-primary self-start" 
+                        href="https://tnlmedia.netlify.app/" 
+                        target="_blank" 
+                        rel="noopener"
+                    >Learn More</a>
                 </div>
                 
                 <!-- Social Media Automation -->
@@ -279,29 +311,34 @@
                     <h3 class="text-3xl font-bold mb-4">Next-Generation <span class="gradient-text">Predictive Analytics</span></h3>
                     <p class="text-gray-400 mb-6">Our proprietary algorithms analyze market trends and historical data to provide investment recommendations with unprecedented accuracy.</p>
                     <div class="timeline-item">
-      <h4 class="text-xl font-bold">Image Studio</h4>
-<p class="text-gray-400">Advanced AI tools for creating, editing, and enhancing images with precision and creativity.</p> </p>
+                        <h4 class="text-xl font-bold">Image Studio</h4>
+                        <p class="text-gray-400">Advanced AI tools for creating, editing, and enhancing images with precision and creativity.</p>
                     </div>
                     <div class="timeline-item">
-<h4 class="text-xl font-bold">Video Generation</h4>
-<p class="text-gray-400">Leverage cutting-edge AI to create stunning videos from simple text inputs, tailored to your needs.</p>
+                        <h4 class="text-xl font-bold">Video Generation</h4>
+                        <p class="text-gray-400">Leverage cutting-edge AI to create stunning videos from simple text inputs, tailored to your needs.</p>
                     </div>
                     <div class="timeline-item">
                         <h4 class="text-xl font-bold">Trend Identification</h4>
                         <p class="text-gray-400">Early detection of emerging market trends for first-mover advantage.</p>
                     </div>
                 </div>
-                <div class="neo-card neo-border p-6">
-                    <div class="w-full h-64 bg-gray-800 rounded-md flex items-center justify-center">
-                        <span class="text-2xl font-bold gradient-text">AI PREDICTIVE DASHBOARD</span>
+                <div class="neo-card neo-border p-0 embed-gradient-box h-72 flex items-center justify-center">
+                    <div class="responsive-embed">
+                        <iframe src="https://tnlmedia.carrd.co/" allowfullscreen loading="lazy" referrerpolicy="no-referrer"></iframe>
                     </div>
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="neo-card neo-border p-6 order-2 md:order-1">
-                    <div class="w-full h-64 bg-gray-800 rounded-md flex items-center justify-center">
-                        <span class="text-2xl font-bold gradient-text">AUTOMATION WORKFLOWS</span>
+                <div class="neo-card neo-border p-0 embed-gradient-box h-72 order-2 md:order-1 flex items-center justify-center">
+                    <div class="responsive-embed">
+                        <iframe 
+                            src="https://www.youtube.com/embed/PbEr2P3jEE8"
+                            title="Automation Workflow"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                            loading="lazy"></iframe>
                     </div>
                 </div>
                 <div class="order-1 md:order-2">
@@ -321,23 +358,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Embedded YouTube Video (no placeholder text) -->
-    <section class="py-12 px-6 bg-gray-800 bg-opacity-70">
-      <div class="container mx-auto flex flex-col items-center">
-        <div class="video-container w-full max-w-screen-md mx-auto aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
-          <iframe
-            class="w-full h-64 md:h-96 rounded-md"
-            src="https://www.youtube.com/embed/8ySHH6LuNe4"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
         </div>
-      </div>
     </section>
 
     <!-- Projects Showcase -->
@@ -347,7 +369,6 @@
                 <h2 class="text-4xl font-bold mb-4">Featured <span class="gradient-text">Projects</span></h2>
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto">Explore our latest work and innovative solutions</p>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- TNL Media Store -->
                 <div class="neo-card overflow-hidden">
@@ -599,3 +620,4 @@
     </script>
 </body>
 </html>
+
