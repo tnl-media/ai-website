@@ -158,6 +158,11 @@
             height: 100%;
             top: 0; left: 0;
         }
+        @media (max-width: 640px) {
+            .embed-gradient-box, .neo-card {
+                box-shadow: 0 4px 16px rgba(0,113,255,0.15);
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -331,10 +336,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div class="neo-card neo-border p-0 embed-gradient-box h-72 order-2 md:order-1 flex items-center justify-center">
                     <div class="responsive-embed">
-                        <video controls playsinline webkit-playsinline poster="https://img.youtube.com/vi/8ySHH6LuNe4/maxresdefault.jpg">
-                          <source src="https://dl.dropboxusercontent.com/scl/fi/4e0k3smu3ahuk8kaeolbg/tnldemovid.mp4?rlkey=6lznvbh0e819i5pc5m6v3rclu&dl=0" type="video/mp4">
-                          Your browser does not support the video tag.
-                        </video>
+                        <iframe src="https://www.youtube.com/embed/8ySHH6LuNe4" title="Automation Workflow" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="order-1 md:order-2">
@@ -530,18 +532,16 @@
             });
         });
 
-        // Watch Demo button scrolls to the demo video in AI Innovations
+        // Watch Demo button scrolls to the demo video in AI Innovations and auto-plays it
         document.getElementById('watch-demo').addEventListener('click', function() {
             const aiSection = document.getElementById('ai-innovations');
             if(aiSection) {
-                // Scroll to the innovations section, then visually focus demo video
                 aiSection.scrollIntoView({behavior: "smooth"});
                 setTimeout(function() {
-                    let videos = aiSection.querySelectorAll('video');
-                    if(videos && videos[0]) {
-                        videos[0].focus();
-                        videos[0].scrollIntoView({behavior:"smooth", block:"center"});
-                        videos[0].play();
+                    let embeds = aiSection.querySelectorAll('iframe, video');
+                    let yt = aiSection.querySelector('iframe[src*="youtube"]');
+                    if (yt && yt.contentWindow) {
+                        yt.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                     }
                 }, 800);
             }
