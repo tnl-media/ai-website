@@ -115,7 +115,6 @@
             overflow: hidden;
             border-radius: 8px;
         }
-        /* AI Animation Styling */
         .ai-canvas-bg {
             position: absolute;
             z-index: 1;
@@ -198,7 +197,6 @@
                         <div class="w-80 h-80 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 blur-3xl absolute -top-10 -left-10"></div>
                         <div class="w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 blur-3xl absolute -bottom-10 -right-10"></div>
                         <div class="neo-card neo-border p-4 relative overflow-hidden" style="width: 320px; height: 256px;">
-                            <!-- Canvas AI Animation -->
                             <canvas id="aiCanvas" width="320" height="256" class="ai-canvas-bg"></canvas>
                             <div class="interface-inner-content flex items-center justify-center w-full h-full">
                                 <span class="text-2xl font-bold gradient-text z-20 text-shadow-lg">AI-POWERED INTERFACE</span>
@@ -372,9 +370,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- TNL Media Store -->
                 <div class="neo-card overflow-hidden">
-                    <div class="h-48 bg-gray-800 flex items-center justify-center">
-                        <span class="text-2xl font-bold gradient-text">TNL MEDIA STORE</span>
-                    </div>
+                    <img src="https://www.promax.com/hubfs/boosted-technology-digital-media-storage-floppy-disks.jpg" alt="Digital Media Store" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Digital Product Marketplace</h3>
                         <p class="text-gray-400 mb-4">Fully automated digital store with AI-generated products and seamless delivery.</p>
@@ -387,9 +383,7 @@
                 
                 <!-- African Homes -->
                 <div class="neo-card overflow-hidden">
-                    <div class="h-48 bg-gray-800 flex items-center justify-center">
-                        <span class="text-2xl font-bold gradient-text">AFRICAN HOMES</span>
-                    </div>
+                    <img src="https://www.archidatum.com/media/2725/abo-villa_nico-van-der-meulen-architects_29.jpg" alt="African Homes" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">Real Estate Platform</h3>
                         <p class="text-gray-400 mb-4">Connecting buyers with premium properties throughout the African continent.</p>
@@ -402,9 +396,7 @@
                 
                 <!-- AI Movie Trailers -->
                 <div class="neo-card overflow-hidden">
-                    <div class="h-48 bg-gray-800 flex items-center justify-center">
-                        <span class="text-2xl font-bold gradient-text">AI CINEMA</span>
-                    </div>
+                    <img src="https://vitrina.ai/wp-content/uploads/2024/06/DALL%C2%B7E-2024-06-21-17.37.54-An-inspiring-image-representing-AI-driven-content-creation-in-the-film-industry.-Picture-a-futuristic-film-studio-with-advanced-AI-technology.-Robot.webp" alt="AI Cinema" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2">AI-Generated Movie Trailers</h3>
                         <p class="text-gray-400 mb-4">Cutting-edge AI technology creating cinematic experiences from text prompts.</p>
@@ -537,7 +529,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         // Add smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -550,12 +542,10 @@
         });
 
         // --- AI Futuristic Animation Effect ---
-        // Neural-node animation, simple and light-weight for header box
         const canvas = document.getElementById("aiCanvas");
         if (canvas && canvas.getContext) {
             const ctx = canvas.getContext("2d");
             const W = canvas.width, H = canvas.height;
-            // Generate particles
             const particles = [];
             const links = [];
             const PARTICLE_COUNT = 14;
@@ -569,7 +559,6 @@
                     r: Math.random() * 3 + 2
                 });
             }
-            // Create a few links between particles for a network look
             for (let i = 0; i < PARTICLE_COUNT; i++) {
                 for (let j = i+1; j < PARTICLE_COUNT; j++) {
                     if (Math.random() < LINK_DENSITY) {
@@ -579,7 +568,6 @@
             }
             function animate() {
                 ctx.clearRect(0,0, W,H);
-                // Draw links
                 for (let l = 0; l < links.length; l++) {
                     const [i, j] = links[l];
                     const pi = particles[i], pj = particles[j];
@@ -594,7 +582,6 @@
                     ctx.stroke();
                     ctx.restore();
                 }
-                // Draw particles
                 for (let i = 0; i < particles.length; i++) {
                     const p = particles[i];
                     ctx.save();
@@ -608,12 +595,10 @@
                     ctx.fill();
                     ctx.restore();
                 }
-                // Animate particles
                 for (let i = 0; i < particles.length; i++) {
                     let p = particles[i];
                     p.x += p.vx;
                     p.y += p.vy;
-                    // Bounce with wall
                     if (p.x < 10 || p.x > W-10) p.vx *= -1;
                     if (p.y < 10 || p.y > H-10) p.vy *= -1;
                 }
