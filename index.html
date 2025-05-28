@@ -10,7 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="https://cdn1.genspark.ai/user-upload-image/4_generated/cb8f58ee-7843-4745-a9b0-d66aa54a4f34_wm" type="image/png">
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
-    <style>
+    <style>/* Hide 'Build with Spline' badge injected by spline-viewer */
+spline-viewer::part(badge),
+spline-viewer .spline-viewer-badge,
+spline-viewer [data-testid="badge"],
+spline-viewer a[href*="spline.design"] {
+    display: none !important;
+}
         :root {
             --primary: #0071FF;
             --secondary: #7A04EB;
