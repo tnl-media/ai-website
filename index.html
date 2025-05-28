@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TNL-Media HQ | Future of AI Services</title>
-    <link rel="icon" href="https://cdn1.genspark.ai/user-upload-image/4_generated/cb8f58ee-7843-4745-a9b0-d66aa54a4f34_wm" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdn1.genspark.ai/user-upload-image/4_generated/cb8f58ee-7843-4745-a9b0-d66aa54a4f34_wm" type="image/png">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
     <style>
         :root {
             --primary: #0071FF;
@@ -204,10 +205,7 @@
                         <div class="w-80 h-80 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 blur-3xl absolute -top-10 -left-10"></div>
                         <div class="w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 blur-3xl absolute -bottom-10 -right-10"></div>
                         <div class="neo-card neo-border p-4 relative overflow-hidden" style="width: 320px; height: 256px;">
-                            <canvas id="aiCanvas" width="320" height="256" class="ai-canvas-bg"></canvas>
-                            <div class="interface-inner-content flex items-center justify-center w-full h-full">
-                                <span class="text-2xl font-bold gradient-text z-20 text-shadow-lg">AI-POWERED INTERFACE</span>
-                            </div>
+                            <spline-viewer url="https://prod.spline.design/ywuzTN6k-afgATHV/scene.splinecode"></spline-viewer>
                         </div>
                     </div>
                 </div>
@@ -558,72 +556,6 @@
             e.preventDefault();
             document.querySelector('#services').scrollIntoView({behavior:'smooth'});
         });
-
-        // --- AI Futuristic Animation Effect ---
-        const canvas = document.getElementById("aiCanvas");
-        if (canvas && canvas.getContext) {
-            const ctx = canvas.getContext("2d");
-            const W = canvas.width, H = canvas.height;
-            const particles = [];
-            const links = [];
-            const PARTICLE_COUNT = 14;
-            const LINK_DENSITY = 0.275;
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                particles.push({
-                    x: Math.random() * W,
-                    y: Math.random() * H,
-                    vx: (Math.random() - 0.5) * 0.6,
-                    vy: (Math.random() - 0.5) * 0.6,
-                    r: Math.random() * 3 + 2
-                });
-            }
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                for (let j = i+1; j < PARTICLE_COUNT; j++) {
-                    if (Math.random() < LINK_DENSITY) {
-                        links.push([i, j]);
-                    }
-                }
-            }
-            function animate() {
-                ctx.clearRect(0,0, W,H);
-                for (let l = 0; l < links.length; l++) {
-                    const [i, j] = links[l];
-                    const pi = particles[i], pj = particles[j];
-                    ctx.save();
-                    ctx.strokeStyle = "rgba(0,240,255,0.22)";
-                    ctx.shadowColor = "#00f0ff";
-                    ctx.shadowBlur = 10;
-                    ctx.lineWidth = 1.5;
-                    ctx.beginPath();
-                    ctx.moveTo(pi.x, pi.y);
-                    ctx.lineTo(pj.x, pj.y);
-                    ctx.stroke();
-                    ctx.restore();
-                }
-                for (let i = 0; i < particles.length; i++) {
-                    const p = particles[i];
-                    ctx.save();
-                    ctx.shadowBlur = 16; ctx.shadowColor = "#86fde8";
-                    var g = ctx.createRadialGradient(p.x, p.y, 1, p.x, p.y, p.r);
-                    g.addColorStop(0,"#66fff3");
-                    g.addColorStop(1,"#0071FF");
-                    ctx.fillStyle = g;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
-                    ctx.fill();
-                    ctx.restore();
-                }
-                for (let i = 0; i < particles.length; i++) {
-                    let p = particles[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    if (p.x < 10 || p.x > W-10) p.vx *= -1;
-                    if (p.y < 10 || p.y > H-10) p.vy *= -1;
-                }
-                requestAnimationFrame(animate);
-            }
-            animate();
-        }
     </script>
     <script type="text/javascript">
   (function(d, t) {
@@ -645,9 +577,9 @@
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDifUB8RUTSiGAqK9oKJfApq1LsZb1bp5pXh9VzIOXjgZBdoF5fqiGjfRf1L%2FeWxDaRJyMrHs%2BE2q%2F4GGetsUTGV54WLdj%2FV7VYcgC%2B%2FhQ%2FxzWfip1lFs9PnP8I7a04cj7X3N9lsuHS0N7lumMCx7DrIsmEz%2FY%2FEZ8EvK%2FAnBQuaYCLUAiuvqiGl2StcHXlHxxWCciAJa7NuGyfwfil9kzm%2BhWIn2A7He5%2FkrkScWKVIC%2Bvj%2FscRtl6IpZaphOdIt2SSMDuHkYAgvD2SrnLCSbNXFXHlQEmNSNnFUyrETCBIEQ0BQGZBk1yl1pLJBNOXsMRCA4ld0i8nQMF4NeBCQU4IekjjsCWg2JAIl2RjJYuayKQyFHa9Ssij7S2oegAHbHEs5JSmkzgg1lhnW3ixmCWiOrA6PELS6ywaG6KO%2BFAOQXKGBhBSonbnxkr7HBty5N8EDxeCaZ6kBHh4Adv86CEmKatAHP0SH5zFi8NPsLDuDCOA4iVXxCHrtu%2BpvSTwc%2Bw%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlMaO2hxad6CEM17bPnXHGBcs8CMtsNpUyuXfGgE5uWb%2BCRZyS%2BAlwTJXWMi7M9%2FTskc7XiIUO7RywHqw79UL2ReoChNsm6ZStnRhNA7ETgrZJfjODMR%2FOPL4uPxWBwgrEwhWTSadYKewhKRj7ODDWaPwXa8UUTKwd%2BEgZL65lvy9%2BmZbBqYEqTlgZzjIcnog09g49J43C8youEq2uNGPtNZC9ux0IwAZ8pX%2FF2ia7iEOBqEPKpZZ7U7arkReVSxqVKHNbDiq36IRh3l4jUBnVpRZgQCGBlAoQ8MRaNjyv84cyWQAktzukkU5DcI86XxUqKtvZYuK7LzEn5H8PW0sYjeDF2Bp7EksGce1350RGg2cFqRIItiKnmtgU6MYNPAcfR5dAcHqKk7AqMGxSB8w%2FZHthYFJ0ji5p%2FlALOw%2FWRYBCFoQj4AASbWuEr%2Biq2Ctdz33%2FnrGN04zC8B6y73DbcE3O1EooupTkxCribEX0DCNjTFwGElef3MSgF9guNAow%3D%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDifUB8RUTSiGAqK9oKJfApq1LsZb1bp5pXh9VzIOXjgZBdoF5fqiGjfRf1L/eWxDaRJyMrHs+E2q/4GGetsUTGV54WLdj/V7VYcgC+/hQ/xzWfip1lFs9PnP8I7a04cj7X3N9lsuHS0N7lumMCx7DrIsmEz/Y/EZ8EvK/AnBQuaYCLUAiuvqiGl2StcHXlHxxWCciAJa7NuGyfwfil9kzm+hWIn2A7He5/krkScWKVIC+vj/scRtl6IpZaphOdIt2SSMDuHkYAgvD2SrnLCSbNXFXHlQEmNSNnFUyrETCBIEQ0BQGZBk1yl1pLJBNOXsMRCA4ld0i8nQMF4NeBCQU4IekjjsCWg2JAIl2RjJYuayKQyFHa9Ssij7S2oegAHbHEs5JSmkzgg1lhnW3ixmCWiOrA6PELS6ywaG6KO+FAOQXKGBhBSonbnxkr7HBty5N8EDxeCaZ6kBHh4Adv86CEmKatAHP0SH5zFi8NPsLDuDCOA4iVXxCHrtu+pvSTwc+w==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlMaO2hxad6CEM17bPnXHGBcs8CMtsNpUyuXfGgE5uWb+CRZyS+AlwTJXWMi7M9/Tskc7XiIUO7RywHqw79UL2ReoChNsm6ZStnRhNA7ETgrZJfjODMR/OPL4uPxWBwgrEwhWTSadYKewhKRj7ODDWaPwXa8UUTKwd+EgZL65lvy9+mZbBqYEqTlgZzjIcnog09g49J43C8youEq2uNGPtNZC9ux0IwAZ8pX/F2ia7iEOBqEPKpZZ7U7arkReVSxqVKHNbDiq36IRh3l4jUBnVpRZgQCGBlAoQ8MRaNjyv84cyWQAktzukkU5DcI86XxUqKtvZYuK7LzEn5H8PW0sYjeDF2Bp7EksGce1350RGg2cFqRIItiKnmtgU6MYNPAcfR5dAcHqKk7AqMGxSB8w/ZHthYFJ0ji5p/lALOw/WRYBCFoQj4AASbWuEr+iq2Ctdz33/nrGN04zC8B6y73DbcE3O1EooupTkxCribEX0DCNjTFwGElef3MSgF9guNAow==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
