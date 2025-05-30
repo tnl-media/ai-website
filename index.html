@@ -283,7 +283,7 @@
 <span>Performance analytics and optimization</span>
 </li>
 </ul>
-<a class="btn-primary self-start" href="https://tnl-medias.netlify.app/" rel="noopener" target="_blank">Learn More</a>
+<a class="btn-primary self-start" href="https://tnlmedias.netlify.app/" rel="noopener" target="_blank">Learn More</a>
 </div>
 <!-- AI Business Solutions -->
 <div class="neo-card p-8 flex flex-col h-full">
@@ -306,7 +306,7 @@
 <span>Automated customer service systems</span>
 </li>
 </ul>
-<a href="https://tnl-medias.netlify.app/" class="learn-more-btn">Learn More</a>
+<a class="btn-primary self-start" href="https://tnl-medias.netlify.app/" rel="noopener" target="_blank">Learn More</a>
 </div>
 </div>
 </div>
@@ -539,103 +539,4 @@
         document.getElementById('watch-demo').addEventListener('click', function() {
             const aiSection = document.getElementById('ai-innovations');
             if(aiSection) {
-                aiSection.scrollIntoView({behavior: "smooth"});
-                setTimeout(function() {
-                    let embeds = aiSection.querySelectorAll('iframe, video');
-                    let yt = aiSection.querySelector('iframe[src*="youtube"]');
-                    if (yt && yt.contentWindow) {
-                        yt.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                    }
-                }, 800);
-            }
-        });
-        // Get Started on navbar scrolls to contact
-        document.getElementById('navbar-getstarted').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('#contact').scrollIntoView({behavior:'smooth'});
-        });
-        // Explore Services button scrolls to services
-        document.getElementById('explore-services').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('#services').scrollIntoView({behavior:'smooth'});
-        });
-    </script>
-<script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68363a36a98ac02d68327bf2' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
-<script>
-// Script to ensure Spline attribution remains hidden
-document.addEventListener('DOMContentLoaded', function() {
-    // Function to hide Spline attribution elements
-    function hideSplineAttribution() {
-        // Hide elements with ID 'logo'
-        const logoElements = document.querySelectorAll('#logo');
-        logoElements.forEach(elem => {
-            elem.style.display = 'none';
-            elem.style.visibility = 'hidden';
-            elem.style.opacity = '0';
-            elem.style.pointerEvents = 'none';
-        });
-
-        // Hide elements with href containing spline.design
-        const splineLinks = document.querySelectorAll('a[href*="spline.design"]');
-        splineLinks.forEach(elem => {
-            elem.style.display = 'none';
-            elem.style.visibility = 'hidden';
-            elem.style.opacity = '0';
-            elem.style.pointerEvents = 'none';
-        });
-
-        // Hide elements with href containing utm_source=spline-viewer
-        const utmLinks = document.querySelectorAll('[href*="utm_source=spline-viewer"], [href*="utm_campaign=spline-logo"]');
-        utmLinks.forEach(elem => {
-            elem.style.display = 'none';
-            elem.style.visibility = 'hidden';
-            elem.style.opacity = '0';
-            elem.style.pointerEvents = 'none';
-        });
-    }
-
-    // Run immediately
-    hideSplineAttribution();
-
-    // Run again after a short delay to catch elements added dynamically
-    setTimeout(hideSplineAttribution, 500);
-    setTimeout(hideSplineAttribution, 1500);
-
-    // Use a MutationObserver to watch for dynamically added elements
-    const observer = new MutationObserver(function(mutations) {
-        hideSplineAttribution();
-    });
-
-    // Start observing
-    observer.observe(document.body, { 
-        childList: true,
-        subtree: true
-    });
-});
-</script>
-</body>
-</html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkt6s1JGsR071QQd%2F1QY2aoPSIsvhhxFiOTk6tL4PDIBI9TKuOTfUbSMHwWaxC3dPA3hjqZ9tXziOtRtIumpWbAnjTTO5paISxVZTwI1tgoDnOIcysg0Uzz9A4F%2FvvfrTlQIOIeaoZD6%2FUombSTVm8qLou1kZNvrIdJNmKA6rAGVDzYEXb0lboOHtxcCYqH3fMcXyBtGe%2FBTTy0M7UU4a82ScRUey6H2TZI%2B6lmJCKqJwtwkE85u38AJ0wHiup1U7NnhVqxqdyd%2FTpRPHsMaG3aILorwh%2BJXzMg5DS8P7R42XtWZZB1koj1m5myqNKjSWjo1YA9%2B5c8anX%2FuiNCHB%2FuvXiK9t0z42yHTgfqnM7ZYEBD%2BHRAnY%2BdDL6De1sMPJBDPUkxRqk0PcL0FCvMspMkhbisTVLCEyygFyFfHlwhljCTgb0qfV%2FUampJHdjzHNo%2BqrPQ8kk%2FgIVHHfjj25l3ofwwzpM9nwhhQZpeI7tCUu%2Ffjx0gbuMHefG1%2Bjc5ZoA%3D%3D";
-        window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkt6s1JGsR071QQd/1QY2aoPSIsvhhxFiOTk6tL4PDIBI9TKuOTfUbSMHwWaxC3dPA3hjqZ9tXziOtRtIumpWbAnjTTO5paISxVZTwI1tgoDnOIcysg0Uzz9A4F/vvfrTlQIOIeaoZD6/UombSTVm8qLou1kZNvrIdJNmKA6rAGVDzYEXb0lboOHtxcCYqH3fMcXyBtGe/BTTy0M7UU4a82ScRUey6H2TZI+6lmJCKqJwtwkE85u38AJ0wHiup1U7NnhVqxqdyd/TpRPHsMaG3aILorwh+JXzMg5DS8P7R42XtWZZB1koj1m5myqNKjSWjo1YA9+5c8anX/uiNCHB/uvXiK9t0z42yHTgfqnM7ZYEBD+HRAnY+dDL6De1sMPJBDPUkxRqk0PcL0FCvMspMkhbisTVLCEyygFyFfHlwhljCTgb0qfV/UampJHdjzHNo+qrPQ8kk/gIVHHfjj25l3ofwwzpM9nwhhQZpeI7tCUu/fjx0gbuMHefG1+jc5ZoA==";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
+                aiSection.scrollIntoView({behavior: "smooth"
