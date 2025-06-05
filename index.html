@@ -245,12 +245,14 @@
         <div class="text-center">
             <h3 class="text-2xl font-bold mb-4 gradient-text">WAIT! Don't Leave Empty-Handed</h3>
             <p class="text-gray-400 mb-6">Get your FREE AI Readiness Assessment (Worth $497) before you go!</p>
-            <div class="mb-4">
-                <input type="email" placeholder="Enter your email for instant access" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="exit-email">
-            </div>
-            <button class="btn-primary w-full mb-3" onclick="claimExitOffer()">
-                <i class="fas fa-gift mr-2"></i>Claim FREE Assessment
-            </button>
+            <form action="https://formspree.io/f/mrbqgagy" method="POST">
+                <div class="mb-4">
+                    <input type="email" name="email" placeholder="Enter your email for instant access" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="exit-email" required>
+                </div>
+                <button class="btn-primary w-full mb-3" type="submit">
+                    <i class="fas fa-gift mr-2"></i>Claim FREE Assessment
+                </button>
+            </form>
             <p class="text-xs text-gray-500">No spam. Unsubscribe anytime.</p>
         </div>
     </div>
@@ -346,7 +348,7 @@
 
 <!-- Client Logo Wall -->
 <div class="mb-16">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/d929a5ea-078f-4d80-a0e1-20fecf37c17d_wm" alt="Trusted Client Brands" class="w-full max-w-4xl mx-auto rounded-lg opacity-70 hover:opacity-100 transition-opacity">
+<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/52be24d9-3c1a-4c68-8fa3-a6ce73df475f_wm" alt="Trusted Client Brands" class="w-full max-w-4xl mx-auto rounded-lg opacity-70 hover:opacity-100 transition-opacity">
 </div>
 
 <!-- Success Metrics Display -->
@@ -372,7 +374,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 <div class="neo-card p-6">
 <div class="flex items-center mb-4">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/c8584ed8-60c1-42a6-a2ad-9dd570bbf5d6_wm" alt="Client Testimonial" class="w-12 h-12 rounded-full mr-4">
+<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/e30710bb-4b08-48ed-ac6b-951c37ba0f34_wm" alt="Marcus Chen" class="w-12 h-12 rounded-full mr-4">
 <div>
 <p class="font-bold">Marcus Chen</p>
 <p class="text-sm text-gray-400">E-commerce CEO</p>
@@ -386,7 +388,7 @@
 
 <div class="neo-card p-6">
 <div class="flex items-center mb-4">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/c8584ed8-60c1-42a6-a2ad-9dd570bbf5d6_wm" alt="Client Testimonial" class="w-12 h-12 rounded-full mr-4">
+<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/3f8fe84b-8008-4d40-9848-7c6af1876c04_wm" alt="Sarah Rodriguez" class="w-12 h-12 rounded-full mr-4">
 <div>
 <p class="font-bold">Sarah Rodriguez</p>
 <p class="text-sm text-gray-400">Digital Agency Owner</p>
@@ -400,7 +402,7 @@
 
 <div class="neo-card p-6">
 <div class="flex items-center mb-4">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/c8584ed8-60c1-42a6-a2ad-9dd570bbf5d6_wm" alt="Client Testimonial" class="w-12 h-12 rounded-full mr-4">
+<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/99f9b383-bb03-42f9-aa3f-09ea7c577e3f_wm" alt="David Park" class="w-12 h-12 rounded-full mr-4">
 <div>
 <p class="font-bold">David Park</p>
 <p class="text-sm text-gray-400">SaaS Founder</p>
@@ -446,19 +448,19 @@
 <h3 class="text-xl font-bold mb-6" id="question-text">What's your current monthly revenue?</h3>
 <div class="space-y-3" id="answer-options">
 <label class="block cursor-pointer">
-<input type="radio" name="q1" value="0-10k" class="mr-3">
+<input type="radio" name="q1" value="0-10k" class="mr-3" onchange="enableNextButton()">
 <span class="text-gray-300">$0 - $10,000</span>
 </label>
 <label class="block cursor-pointer">
-<input type="radio" name="q1" value="10k-50k" class="mr-3">
+<input type="radio" name="q1" value="10k-50k" class="mr-3" onchange="enableNextButton()">
 <span class="text-gray-300">$10,000 - $50,000</span>
 </label>
 <label class="block cursor-pointer">
-<input type="radio" name="q1" value="50k-100k" class="mr-3">
+<input type="radio" name="q1" value="50k-100k" class="mr-3" onchange="enableNextButton()">
 <span class="text-gray-300">$50,000 - $100,000</span>
 </label>
 <label class="block cursor-pointer">
-<input type="radio" name="q1" value="100k+" class="mr-3">
+<input type="radio" name="q1" value="100k+" class="mr-3" onchange="enableNextButton()">
 <span class="text-gray-300">$100,000+</span>
 </label>
 </div>
@@ -489,9 +491,13 @@
 </div>
 </div>
 <p class="text-gray-400 mb-6">Based on your responses, you're an excellent candidate for AI automation. Get your detailed strategy report below.</p>
-<button class="btn-primary" onclick="claimStrategy()">
+<form action="https://formspree.io/f/mrbqgagy" method="POST">
+<input type="hidden" name="form_type" value="ai_assessment_strategy">
+<input type="hidden" name="ai_score" id="strategy-score" value="87">
+<button class="btn-primary" type="submit">
 <i class="fas fa-download mr-2"></i>Get My Custom Strategy Report
 </button>
+</form>
 </div>
 </div>
 </div>
@@ -772,9 +778,9 @@ MOST POPULAR
 <div class="mb-8">
 <h3 class="text-2xl font-bold mb-4">Connect With the AI Empire Builder</h3>
 <div class="flex flex-col space-y-4">
-<a class="flex items-center text-gray-300 hover:text-white transition" href="/cdn-cgi/l/email-protection#593a36372d383a2d192d3735343c3d3038773a3634">
+<a class="flex items-center text-gray-300 hover:text-white transition" href="/cdn-cgi/l/email-protection#15767a7b6174766155617b797870717c743b767a78">
 <i class="fas fa-envelope text-blue-400 mr-4 w-6"></i>
-<span><span class="__cf_email__" data-cfemail="2f4c40415b4e4c5b6f5b4143424a4b464e014c4042">[email&#160;protected]</span></span>
+<span><span class="__cf_email__" data-cfemail="6d0e0203190c0e192d190301000809040c430e0200">[email&#160;protected]</span></span>
 </a>
 <a class="flex items-center text-gray-300 hover:text-white transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-blue-400 mr-4 w-6"></i>
@@ -1027,16 +1033,6 @@ function closeExitModal() {
     }
 }
 
-function claimExitOffer() {
-    const email = document.getElementById('exit-email').value;
-    if (email && email.includes('@')) {
-        alert('🎉 Success! Your FREE AI Assessment has been sent to ' + email);
-        closeExitModal();
-    } else {
-        alert('Please enter a valid email address');
-    }
-}
-
 // Assessment Tool Functions
 function startAssessment() {
     document.getElementById('assessment-intro').classList.remove('active');
@@ -1058,6 +1054,9 @@ function nextQuestion() {
         } else {
             showResults();
         }
+        
+        // Reset next button for new question
+        document.getElementById('next-btn').disabled = true;
     }
 }
 
@@ -1112,8 +1111,6 @@ function loadQuestion(questionNum) {
             <span class="text-gray-300">${option.label}</span>
         </label>
     `).join('');
-    
-    document.getElementById('next-btn').disabled = true;
 }
 
 function enableNextButton() {
@@ -1132,10 +1129,7 @@ function showResults() {
     // Calculate score based on answers
     let score = Math.floor(Math.random() * 15) + 75; // 75-90 range
     document.getElementById('ai-score').textContent = score;
-}
-
-function claimStrategy() {
-    alert('🎯 Your custom AI strategy report has been generated! Check your email in the next 5 minutes.');
+    document.getElementById('strategy-score').value = score;
 }
 
 // ROI Calculator
@@ -1203,25 +1197,15 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(showSuccessNotification, 3000);
     setInterval(showSuccessNotification, 15000);
 });
-
-// Prevent right-click and text selection for additional protection
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-
-document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
-});
 </script>
-
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b0c4f53fba4df3","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b12044aad8f0bd","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqw9FlfjmC2CuVjEceVa6Qr3vbHfm2d7PTrv03lAN77DnhFFgjzobldCYzq2sBzHol%2BBFrLrePRItOarV9Fb%2FEHsSQ5nC8RvApFvQoCkGwNl4JnXJMIsW7kcfBf4QRuyIAQlBImXeCafQ1olls2OU1bDo9fK543i2F1WgzZhsiCnVwlRPybpp%2FjyTvoTaf3GBuUYL789xQEkbnsbuhg7ztYmSlQZ0StcjNDyQMPAfuDCf17NsymN9CDeWZBG%2BOiiMMvs50c1x1V5oeWyPmbgJUj0t2vo7C1%2BNg3Tj%2F96tMD%2BLvn%2BP32dn6wOivL%2BhJaovYWSWrBkfCRvBm0gk79ESDFm23ii%2FkmV5deQ%2FyWDdL4xrCMMyfbHazi16fKCS6lolA29Lj6CLYIiGzFshHRQ%2FPy%2FOPiRXzdXkUcQtKfKx0zKOlK4XA1UjClCJbRR7ABkMXvSQMO5Yn9YfLxvam1BTlrKyf07HNAxeDA3yqv%2B2J3AZCGjsyciifnFzK3yig4tlX05C49PK%2FiEb%2B4t%2FGBkm%2Bs%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqZ9lzedhtus64bpZoScZXaqxH4ozp3%2FaFn0VmOJR74rjPu30tu1gvYp0By2Y6GYoK%2FJW2ph%2B8m1H%2FXtcJ%2Ff8XLZyOi%2BozDfdFPqz1G6k8p9Tfahx4IdiJEHbIv0SW3z0QLSwv5Qo6juaBkL0cFc%2FzJsnGA%2BDsaOmZ4ECjLklheDlnO1wEW19F6wEFvCtKh3ufsVGhn4TJdjjXYFwHyGJqKnVQt3wSIHntEOj9E9nzgNZ3qahG4TvHiQZpMmIozzO8vCW8EHU9Vdx%2FHIyyVGFMi4lloyqAivQDXa%2Bi2ZH%2FKY%2FQH%2FDInv1I%2FC4HvfjESl2dau%2FOTQHD3Kln2DpfswodG%2BqDFPwan%2B%2FjC6vwl57XYvwLPzPvls9ukda4VXfcb9pYDTnHCT4zVQezhP9r296oCQy%2F4ryTfcmfKAtcmynCDuT9DsLAXplXr6RUP%2BiVom5JaoLInxlF79SxeG%2FQpJH9CcjKKHRCfnqhRjKCjI5xFUXXF%2F%2FKvzK6ce4pFIvl9aRBx%2BFfmZpUwfgUZeuXZTC8o%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqw9FlfjmC2CuVjEceVa6Qr3vbHfm2d7PTrv03lAN77DnhFFgjzobldCYzq2sBzHol+BFrLrePRItOarV9Fb/EHsSQ5nC8RvApFvQoCkGwNl4JnXJMIsW7kcfBf4QRuyIAQlBImXeCafQ1olls2OU1bDo9fK543i2F1WgzZhsiCnVwlRPybpp/jyTvoTaf3GBuUYL789xQEkbnsbuhg7ztYmSlQZ0StcjNDyQMPAfuDCf17NsymN9CDeWZBG+OiiMMvs50c1x1V5oeWyPmbgJUj0t2vo7C1+Ng3Tj/96tMD+Lvn+P32dn6wOivL+hJaovYWSWrBkfCRvBm0gk79ESDFm23ii/kmV5deQ/yWDdL4xrCMMyfbHazi16fKCS6lolA29Lj6CLYIiGzFshHRQ/Py/OPiRXzdXkUcQtKfKx0zKOlK4XA1UjClCJbRR7ABkMXvSQMO5Yn9YfLxvam1BTlrKyf07HNAxeDA3yqv+2J3AZCGjsyciifnFzK3yig4tlX05C49PK/iEb+4t/GBkm+s=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqZ9lzedhtus64bpZoScZXaqxH4ozp3/aFn0VmOJR74rjPu30tu1gvYp0By2Y6GYoK/JW2ph+8m1H/XtcJ/f8XLZyOi+ozDfdFPqz1G6k8p9Tfahx4IdiJEHbIv0SW3z0QLSwv5Qo6juaBkL0cFc/zJsnGA+DsaOmZ4ECjLklheDlnO1wEW19F6wEFvCtKh3ufsVGhn4TJdjjXYFwHyGJqKnVQt3wSIHntEOj9E9nzgNZ3qahG4TvHiQZpMmIozzO8vCW8EHU9Vdx/HIyyVGFMi4lloyqAivQDXa+i2ZH/KY/QH/DInv1I/C4HvfjESl2dau/OTQHD3Kln2DpfswodG+qDFPwan+/jC6vwl57XYvwLPzPvls9ukda4VXfcb9pYDTnHCT4zVQezhP9r296oCQy/4ryTfcmfKAtcmynCDuT9DsLAXplXr6RUP+iVom5JaoLInxlF79SxeG/QpJH9CcjKKHRCfnqhRjKCjI5xFUXXF//KvzK6ce4pFIvl9aRBx+FfmZpUwfgUZeuXZTC8o=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
