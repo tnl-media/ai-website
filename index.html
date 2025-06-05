@@ -492,8 +492,8 @@
 </div>
 <p class="text-gray-400 mb-6">Based on your responses, you're an excellent candidate for AI automation. Get your detailed strategy report below.</p>
 <form action="https://formspree.io/f/mrbqgagy" method="POST">
-<input type="hidden" name="assessment_score" value="87">
-<input type="hidden" name="form_type" value="AI Assessment Results">
+<input type="hidden" name="assessment_score" id="assessment_score_input" value="87">
+<input type="hidden" name="assessment_type" value="AI Readiness Assessment">
 <button type="submit" class="btn-primary">
 <i class="fas fa-download mr-2"></i>Get My Custom Strategy Report
 </button>
@@ -703,7 +703,7 @@ MOST POPULAR
 <span class="text-green-400 font-bold">10M+ Video Views</span>
 <span class="text-blue-400">Automation Level: 92%</span>
 </div>
-<a class="text-blue-400 hover:text-blue-300 flex items-center font-semibold" href="https://www.youtube.com/embed/oBiVaT22OTA" target="_blank">
+<a class="text-blue-400 hover:text-blue-300 flex items-center font-semibold" href="https://youtube.com/embed/6eQENkdqMiE" target="_blank">
 <span>Watch Creation Process</span>
 <i class="fas fa-external-link-alt ml-2"></i>
 </a>
@@ -711,10 +711,10 @@ MOST POPULAR
 </div>
 </div>
 
-<!-- ROI Calculator -->
+<!-- Enhanced ROI Calculator -->
 <div class="mt-20 max-w-4xl mx-auto">
 <div class="neo-card p-8">
-<h3 class="text-3xl font-bold text-center mb-8">Calculate Your <span class="gradient-text">AI ROI</span></h3>
+<h3 class="text-3xl font-bold text-center mb-8">Advanced <span class="gradient-text">AI ROI</span> Calculator</h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div>
 <div class="mb-4">
@@ -725,8 +725,16 @@ MOST POPULAR
 <label class="block text-gray-400 mb-2">Hours Spent on Manual Tasks (weekly)</label>
 <input type="number" id="manual-hours" placeholder="40" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
 </div>
-<button class="btn-primary w-full" onclick="calculateROI()">
-<i class="fas fa-calculator mr-2"></i>Calculate My ROI
+<div class="mb-4">
+<label class="block text-gray-400 mb-2">Current Team Size</label>
+<input type="number" id="team-size" placeholder="5" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+</div>
+<div class="mb-4">
+<label class="block text-gray-400 mb-2">Average Hourly Rate ($)</label>
+<input type="number" id="hourly-rate" placeholder="50" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+</div>
+<button class="btn-primary w-full" onclick="calculateAdvancedROI()">
+<i class="fas fa-calculator mr-2"></i>Calculate Advanced ROI
 </button>
 </div>
 <div id="roi-results" class="bg-gray-800 p-6 rounded-lg hidden">
@@ -741,13 +749,24 @@ MOST POPULAR
 <span class="font-bold text-blue-400" id="hours-saved">0</span>
 </div>
 <div class="flex justify-between">
-<span>Annual ROI:</span>
-<span class="font-bold text-purple-400" id="annual-roi">0%</span>
+<span>Cost Savings (Annual):</span>
+<span class="font-bold text-purple-400" id="cost-savings">$0</span>
+</div>
+<div class="flex justify-between">
+<span>Efficiency Gain:</span>
+<span class="font-bold text-cyan-400" id="efficiency-gain">0%</span>
+</div>
+<div class="flex justify-between">
+<span>Break-even Time:</span>
+<span class="font-bold text-yellow-400" id="breakeven-time">0 months</span>
 </div>
 <div class="flex justify-between border-t border-gray-600 pt-3">
-<span class="font-bold">12-Month Revenue Increase:</span>
-<span class="font-bold text-yellow-400" id="revenue-increase">$0</span>
+<span class="font-bold">12-Month Net Profit:</span>
+<span class="font-bold text-green-300" id="net-profit">$0</span>
 </div>
+</div>
+<div class="mt-6">
+<canvas id="roi-chart" width="400" height="200"></canvas>
 </div>
 </div>
 </div>
@@ -778,9 +797,9 @@ MOST POPULAR
 <div class="mb-8">
 <h3 class="text-2xl font-bold mb-4">Connect With the AI Empire Builder</h3>
 <div class="flex flex-col space-y-4">
-<a class="flex items-center text-gray-300 hover:text-white transition" href="/cdn-cgi/l/email-protection#0a7e6466687f7963646f7979794a6d676b636624696567">
+<a class="flex items-center text-gray-300 hover:text-white transition" href="/cdn-cgi/l/email-protection#4c3822202e393f2522293f3f3f0c2b212d2520622f2321">
 <i class="fas fa-envelope text-blue-400 mr-4 w-6"></i>
-<span><span class="__cf_email__" data-cfemail="73071d1f1106001a1d1600000033141e121a1f5d101c1e">[email&#160;protected]</span></span>
+<span><span class="__cf_email__" data-cfemail="d2a6bcbeb0a7a1bbbcb7a1a1a192b5bfb3bbbefcb1bdbf">[email&#160;protected]</span></span>
 </a>
 <a class="flex items-center text-gray-300 hover:text-white transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-blue-400 mr-4 w-6"></i>
@@ -804,12 +823,12 @@ MOST POPULAR
 <a class="neo-card p-4 text-center hover:glow transition" href="https://crazycryptobudz.carrd.co/" target="_blank">
 <i class="fas fa-coins text-2xl mb-2 text-blue-400"></i>
 <p class="font-bold">Crazy Crypto Budz</p>
-<p class="text-xs text-gray-400">Trading Bots</p>
+<p class="text-xs text-gray-400">Trading Community</p>
 </a>
 <a class="neo-card p-4 text-center hover:glow transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-2xl mb-2 text-blue-400"></i>
 <p class="font-bold">T3 is Key Channel</p>
-<p class="text-xs text-gray-400">Free Training</p>
+<p class="text-xs text-gray-400">AI Training</p>
 </a>
 <a class="neo-card p-4 text-center hover:glow transition" href="https://africanhomesforsale.com/" target="_blank">
 <i class="fas fa-home text-2xl mb-2 text-blue-400"></i>
@@ -926,32 +945,45 @@ MOST POPULAR
 let currentQuestion = 1;
 let assessmentAnswers = {};
 let exitIntentShown = false;
-let mouseY = 0;
+let countdownEndTime;
 
-// Countdown Timer
+// Initialize countdown with a specific end time (72 hours from now)
+function initializeCountdown() {
+    const now = new Date().getTime();
+    countdownEndTime = now + (72 * 60 * 60 * 1000); // 72 hours in milliseconds
+    updateCountdown();
+}
+
+// Enhanced Countdown Timer Function
 function updateCountdown() {
     const countdownElement = document.getElementById('countdown');
     if (!countdownElement) return;
     
-    let hours = 71;
-    let minutes = 59;
-    let seconds = 59;
-    
-    setInterval(() => {
-        if (seconds > 0) {
-            seconds--;
-        } else if (minutes > 0) {
-            minutes--;
-            seconds = 59;
-        } else if (hours > 0) {
-            hours--;
-            minutes = 59;
-            seconds = 59;
-        }
+    function tick() {
+        const now = new Date().getTime();
+        const distance = countdownEndTime - now;
         
-        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        countdownElement.textContent = timeString;
-    }, 1000);
+        if (distance > 0) {
+            const hours = Math.floor(distance / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            countdownElement.textContent = timeString;
+            
+            // Add urgency styling when under 24 hours
+            if (hours < 24) {
+                countdownElement.classList.add('text-red-400');
+                countdownElement.parentElement.classList.add('animate-pulse');
+            }
+        } else {
+            countdownElement.textContent = "00:00:00";
+            countdownElement.classList.add('text-red-500');
+        }
+    }
+    
+    tick(); // Initial call
+    setInterval(tick, 1000);
 }
 
 // Success Notifications
@@ -1040,6 +1072,10 @@ function startAssessment() {
     updateProgress();
 }
 
+function enableNextButton() {
+    document.getElementById('next-btn').disabled = false;
+}
+
 function nextQuestion() {
     const currentQuestionName = `q${currentQuestion}`;
     const selectedAnswer = document.querySelector(`input[name="${currentQuestionName}"]:checked`);
@@ -1112,10 +1148,6 @@ function loadQuestion(questionNum) {
     document.getElementById('next-btn').disabled = true;
 }
 
-function enableNextButton() {
-    document.getElementById('next-btn').disabled = false;
-}
-
 function updateProgress() {
     const progress = (currentQuestion / 5) * 100;
     document.getElementById('progress-fill').style.width = `${progress}%`;
@@ -1125,36 +1157,174 @@ function showResults() {
     document.getElementById('assessment-questions').classList.remove('active');
     document.getElementById('assessment-results').classList.add('active');
     
-    // Calculate score based on answers
-    let score = Math.floor(Math.random() * 15) + 75; // 75-90 range
+    // Calculate score based on answers with more sophisticated algorithm
+    let score = calculateAssessmentScore();
     document.getElementById('ai-score').textContent = score;
+    document.getElementById('assessment_score_input').value = score;
 }
 
-// ROI Calculator
-function calculateROI() {
+function calculateAssessmentScore() {
+    let baseScore = 60;
+    
+    // Revenue factor
+    const revenue = assessmentAnswers.q1;
+    if (revenue === '100k+') baseScore += 20;
+    else if (revenue === '50k-100k') baseScore += 15;
+    else if (revenue === '10k-50k') baseScore += 10;
+    else baseScore += 5;
+    
+    // Time factor
+    const timeSpent = assessmentAnswers.q2;
+    if (timeSpent === '40+') baseScore += 15;
+    else if (timeSpent === '20-40') baseScore += 12;
+    else if (timeSpent === '10-20') baseScore += 8;
+    else baseScore += 3;
+    
+    // Challenge factor
+    const challenge = assessmentAnswers.q3;
+    if (challenge === 'scaling') baseScore += 12;
+    else if (challenge === 'time-management') baseScore += 10;
+    else baseScore += 8;
+    
+    // Experience factor
+    const experience = assessmentAnswers.q4;
+    if (experience === 'advanced') baseScore += 8;
+    else if (experience === 'intermediate') baseScore += 10;
+    else if (experience === 'some-experience') baseScore += 12;
+    else baseScore += 15; // Beginners have more potential
+    
+    // Goals factor
+    const goals = assessmentAnswers.q5;
+    if (goals === 'passive-income') baseScore += 10;
+    else if (goals === 'double-revenue') baseScore += 8;
+    else baseScore += 6;
+    
+    return Math.min(Math.max(baseScore, 65), 95); // Ensure score is between 65-95
+}
+
+// Enhanced ROI Calculator with Sophisticated Algorithms
+function calculateAdvancedROI() {
     const currentRevenue = parseFloat(document.getElementById('current-revenue').value) || 0;
     const manualHours = parseFloat(document.getElementById('manual-hours').value) || 0;
+    const teamSize = parseFloat(document.getElementById('team-size').value) || 1;
+    const hourlyRate = parseFloat(document.getElementById('hourly-rate').value) || 50;
     
     if (currentRevenue > 0) {
-        const projectedRevenue = Math.floor(currentRevenue * 2.4); // 240% average increase
-        const hoursSaved = Math.floor(manualHours * 0.8); // 80% automation
-        const annualROI = Math.floor(((projectedRevenue * 12 - currentRevenue * 12) / (currentRevenue * 12)) * 100);
-        const revenueIncrease = (projectedRevenue - currentRevenue) * 12;
+        // Advanced calculations with multiple factors
+        const automationEfficiency = 0.75; // 75% automation achievable
+        const revenueMultiplier = calculateRevenueMultiplier(currentRevenue);
+        const hoursSavedWeekly = Math.floor(manualHours * automationEfficiency);
+        const costSavingsAnnual = hoursSavedWeekly * 52 * hourlyRate * teamSize;
+        const projectedRevenue = Math.floor(currentRevenue * revenueMultiplier);
+        const efficiencyGain = Math.floor(((projectedRevenue - currentRevenue) / currentRevenue) * 100);
+        const implementationCost = calculateImplementationCost(currentRevenue);
+        const breakEvenMonths = Math.ceil(implementationCost / ((projectedRevenue - currentRevenue) + (costSavingsAnnual / 12)));
+        const netProfit = ((projectedRevenue - currentRevenue) * 12) + costSavingsAnnual - implementationCost;
         
+        // Update display
         document.getElementById('projected-revenue').textContent = `$${projectedRevenue.toLocaleString()}`;
-        document.getElementById('hours-saved').textContent = `${hoursSaved} hours`;
-        document.getElementById('annual-roi').textContent = `${annualROI}%`;
-        document.getElementById('revenue-increase').textContent = `$${revenueIncrease.toLocaleString()}`;
+        document.getElementById('hours-saved').textContent = `${hoursSavedWeekly} hours`;
+        document.getElementById('cost-savings').textContent = `$${costSavingsAnnual.toLocaleString()}`;
+        document.getElementById('efficiency-gain').textContent = `${efficiencyGain}%`;
+        document.getElementById('breakeven-time').textContent = `${breakEvenMonths} months`;
+        document.getElementById('net-profit').textContent = `$${netProfit.toLocaleString()}`;
         
         document.getElementById('roi-results').classList.remove('hidden');
+        
+        // Create ROI projection chart
+        createROIChart(currentRevenue, projectedRevenue, costSavingsAnnual, implementationCost);
     } else {
         alert('Please enter your current monthly revenue to calculate ROI');
     }
 }
 
+function calculateRevenueMultiplier(revenue) {
+    // Sophisticated revenue multiplier based on business size
+    if (revenue < 10000) return 2.8;
+    if (revenue < 50000) return 2.4;
+    if (revenue < 100000) return 2.1;
+    if (revenue < 500000) return 1.8;
+    return 1.5;
+}
+
+function calculateImplementationCost(revenue) {
+    // Implementation cost calculation based on revenue
+    const baseCost = 15000;
+    const scalingFactor = revenue * 0.1;
+    return Math.min(baseCost + scalingFactor, 75000);
+}
+
+function createROIChart(currentRevenue, projectedRevenue, costSavings, implementationCost) {
+    const ctx = document.getElementById('roi-chart').getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (window.roiChart) {
+        window.roiChart.destroy();
+    }
+    
+    const months = ['Month 1', 'Month 3', 'Month 6', 'Month 9', 'Month 12'];
+    const currentData = months.map(() => currentRevenue);
+    const projectedData = months.map((_, index) => {
+        const progress = (index + 1) / 12;
+        return currentRevenue + ((projectedRevenue - currentRevenue) * progress);
+    });
+    
+    window.roiChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [{
+                label: 'Current Revenue Path',
+                data: currentData,
+                borderColor: '#7A04EB',
+                backgroundColor: 'rgba(122, 4, 235, 0.1)',
+                tension: 0.1
+            }, {
+                label: 'AI-Optimized Revenue',
+                data: projectedData,
+                borderColor: '#00F0FF',
+                backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#F0F5FF'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#F0F5FF',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#F0F5FF'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            }
+        }
+    });
+}
+
 // Video Demo Function
 function openVideoDemo() {
-    window.open('https://www.youtube.com/embed/8ySHH6LuNe4', '_blank');
+    window.open('https://youtube.com/embed/6eQENkdqMiE', '_blank');
 }
 
 // Smooth Scrolling
@@ -1186,7 +1356,7 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
 
 // Initialize All Functions
 document.addEventListener('DOMContentLoaded', function() {
-    updateCountdown();
+    initializeCountdown();
     animateLiveCounters();
     updateSpotsRemaining();
     detectExitIntent();
@@ -1195,16 +1365,24 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(showSuccessNotification, 3000);
     setInterval(showSuccessNotification, 15000);
 });
-</script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b13723bf9c6725","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+// Prevent right-click and text selection for additional protection
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+});
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b1572d1c0b6bda","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqaVSVHuP0zMGccDvosfOeGgWQ19K0cYQH%2BYWYHH4sp%2BQ9LnAET6Xes04H76gx%2BPLWpt2bjPZq17x2LCXeKjU1dj%2BIYt%2F4DZdN6Tpl0fWeABxjmNOj5Q7vc7ksGeAZDP7R8YCySRXofR1fVxDgkc8pJE4FRUkcTpowak4l9Ro9OWRE%2FLBOShLtGTMGoG3vw5DyuuKWVfKGVj%2FIWfjzfGRGgQVv2TRkG%2B9LkYWwXzwK5t3JvZL5EE6%2FQUNwNgl7qb%2BtWWZUQ60YkcixL0Gyh5rgjv7%2F%2FcKmSzgdk3rBcOpGjeVgZVCD9VVm4upQBH7m1ImZPAHzts0bvwcYSofD9jp2tF4FXQCyNn1vRJGyiWZcaxM47lJ21zVey4kzvybL2nwHPMHDei3cDM0xKQDlcgQYy5chegGuzOHx4I2mea6IH3vETKDpLVIiaQsoa%2BjCYxx8NIwRdKUcS5fz%2Fq5mJreZZQ5OQyKDN607cgVSXNBjH%2F4Imften3QSUoci8eS6mBFKshc%2BjtTiskzX9aBR9knN4%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu%2ByIdZnkAE4s6aU2UsiHZZmGtGH9y5%2BHhyntA6JBafRr8GBJjY2wDYndLcG9ylu4E%2BQ%2FWvMt1mACM5RKizzPVTu7kKkH5uzFrhxvSepUDTgVZYIaWWBBaWgqrB0NJhg2yWYOTd79%2F26RHjcyWQkI%2BnWHjy4MUJmqjBOprWPUzgcaQOHnQe%2F4HAbws2VWTq3WVzSpidMgwRQtJEewpl%2FJw1xqQWrBtYgWEDFNJvV%2BCIsEniAy0MMq1%2FOL9sopfjFbskaZYEcv%2BkExUYFVHmkru6msdnq%2FRMi2D3JSrw1e7appu%2BPO6FK89zMLoPN%2Fw3X%2Bj24Ck7aQXTC9k3pDHQHkwK%2FVP3PEvjBXl4Za8X37H0ceifpw%2BhXGFOLKVzElQgERw4UiVeHVGHiCJ6fUHvVOa3i3EX%2BV76N7k3oAX5pZ7ZV0Dg3pKbZ4qgZC2%2BDMjwcRF%2BHTlowpwbPJpRNf0FaDB55n%2FN0BFUa4%2BRgOX%2Ff7sRzkAPYSkQ4kuWoaLB8i6bi9CeSfg8rTZKXq0LUAkPs394%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqaVSVHuP0zMGccDvosfOeGgWQ19K0cYQH+YWYHH4sp+Q9LnAET6Xes04H76gx+PLWpt2bjPZq17x2LCXeKjU1dj+IYt/4DZdN6Tpl0fWeABxjmNOj5Q7vc7ksGeAZDP7R8YCySRXofR1fVxDgkc8pJE4FRUkcTpowak4l9Ro9OWRE/LBOShLtGTMGoG3vw5DyuuKWVfKGVj/IWfjzfGRGgQVv2TRkG+9LkYWwXzwK5t3JvZL5EE6/QUNwNgl7qb+tWWZUQ60YkcixL0Gyh5rgjv7//cKmSzgdk3rBcOpGjeVgZVCD9VVm4upQBH7m1ImZPAHzts0bvwcYSofD9jp2tF4FXQCyNn1vRJGyiWZcaxM47lJ21zVey4kzvybL2nwHPMHDei3cDM0xKQDlcgQYy5chegGuzOHx4I2mea6IH3vETKDpLVIiaQsoa+jCYxx8NIwRdKUcS5fz/q5mJreZZQ5OQyKDN607cgVSXNBjH/4Imften3QSUoci8eS6mBFKshc+jtTiskzX9aBR9knN4=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu+yIdZnkAE4s6aU2UsiHZZmGtGH9y5+HhyntA6JBafRr8GBJjY2wDYndLcG9ylu4E+Q/WvMt1mACM5RKizzPVTu7kKkH5uzFrhxvSepUDTgVZYIaWWBBaWgqrB0NJhg2yWYOTd79/26RHjcyWQkI+nWHjy4MUJmqjBOprWPUzgcaQOHnQe/4HAbws2VWTq3WVzSpidMgwRQtJEewpl/Jw1xqQWrBtYgWEDFNJvV+CIsEniAy0MMq1/OL9sopfjFbskaZYEcv+kExUYFVHmkru6msdnq/RMi2D3JSrw1e7appu+PO6FK89zMLoPN/w3X+j24Ck7aQXTC9k3pDHQHkwK/VP3PEvjBXl4Za8X37H0ceifpw+hXGFOLKVzElQgERw4UiVeHVGHiCJ6fUHvVOa3i3EX+V76N7k3oAX5pZ7ZV0Dg3pKbZ4qgZC2+DMjwcRF+HTlowpwbPJpRNf0FaDB55n/N0BFUa4+RgOX/f7sRzkAPYSkQ4kuWoaLB8i6bi9CeSfg8rTZKXq0LUAkPs394=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
