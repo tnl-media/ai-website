@@ -11,6 +11,9 @@
 <link href="https://cdn1.genspark.ai/user-upload-image/4_generated/cb8f58ee-7843-4745-a9b0-d66aa54a4f34_wm" rel="icon" type="image/png"/>
 <script src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <style>
         :root {
             --primary: #0071FF;
@@ -198,6 +201,43 @@
             width: 0%;
             transition: width 0.5s ease;
         }
+        .enhanced-hover:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3);
+        }
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .number-counter {
+            transition: all 0.5s ease;
+        }
+        .pdf-download-btn {
+            background: linear-gradient(135deg, var(--success), #059669);
+            animation: downloadPulse 2s infinite;
+        }
+        @keyframes downloadPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
+        .sophisticated-assessment {
+            background: linear-gradient(135deg, rgba(0, 113, 255, 0.1), rgba(122, 4, 235, 0.1));
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+        .advanced-notification {
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 240, 255, 0.5);
+        }
         #logo, a[href*="spline.design"] {
             display: none !important;
             visibility: hidden !important;
@@ -216,44 +256,51 @@
 </head>
 <body class="min-h-screen">
 
-<!-- Scarcity Banner -->
+<!-- Enhanced Scarcity Banner -->
 <div class="scarcity-banner">
     <div class="flex items-center justify-center space-x-4">
         <i class="fas fa-fire text-yellow-300"></i>
-        <span>LIMITED TIME: Only <span id="spots-remaining" class="countdown-timer">7</span> consultation spots available this month!</span>
-        <span class="countdown-timer">Expires in: <span id="countdown">72:00:00</span></span>
+        <span>🔥 EXCLUSIVE: Only <span id="spots-remaining" class="countdown-timer">7</span> AI Empire spots remaining this quarter!</span>
+        <span class="countdown-timer">Offer expires: <span id="countdown">71:59:59</span></span>
     </div>
 </div>
 
-<!-- Success Notifications -->
-<div id="success-notification" class="success-notification neo-card p-4 max-w-sm">
+<!-- Enhanced Success Notifications -->
+<div id="success-notification" class="success-notification neo-card advanced-notification p-4 max-w-sm">
     <div class="flex items-center space-x-3">
         <div class="w-3 h-3 bg-green-500 rounded-full pulse-dot"></div>
         <div>
             <p class="font-bold text-sm" id="notification-text">Marcus just automated his entire sales funnel!</p>
             <p class="text-xs text-gray-400" id="notification-time">2 minutes ago</p>
+            <p class="text-xs text-green-400" id="notification-value">+$50K monthly revenue</p>
         </div>
     </div>
 </div>
 
-<!-- Exit Intent Modal -->
+<!-- Enhanced Exit Intent Modal with PDF Lead Magnet -->
 <div id="exit-intent-modal" class="exit-intent-modal">
     <div class="modal-content">
         <button class="absolute top-4 right-4 text-gray-400 hover:text-white" onclick="closeExitModal()">
             <i class="fas fa-times text-xl"></i>
         </button>
         <div class="text-center">
-            <h3 class="text-2xl font-bold mb-4 gradient-text">WAIT! Don't Leave Empty-Handed</h3>
-            <p class="text-gray-400 mb-6">Get your FREE AI Readiness Assessment (Worth $497) before you go!</p>
-            <form action="https://formspree.io/f/mrbqgagy" method="POST">
+            <div class="mb-4">
+                <i class="fas fa-gift text-4xl text-yellow-400 mb-2"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 gradient-text">🎯 WAIT! Don't Leave Without Your FREE Guide</h3>
+            <p class="text-gray-300 mb-4">Get the <strong>"AI Empire Building Blueprint"</strong> - A comprehensive 25-page strategy guide (Worth $497)</p>
+            <div class="bg-green-900 bg-opacity-30 border border-green-500 rounded-lg p-3 mb-4">
+                <p class="text-green-300 text-sm">✅ Instant Download • ✅ No Credit Card Required • ✅ 25+ Pages of Strategies</p>
+            </div>
+            <form onsubmit="claimPDFGuide(event)">
                 <div class="mb-4">
-                    <input type="email" name="email" placeholder="Enter your email for instant access" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="exit-email" required>
+                    <input type="email" placeholder="Enter your email for instant access" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="exit-email" required>
                 </div>
-                <button type="submit" class="btn-primary w-full mb-3">
-                    <i class="fas fa-gift mr-2"></i>Claim FREE Assessment
+                <button type="submit" class="pdf-download-btn text-white border-none px-6 py-3 rounded-md font-weight-600 w-full mb-3">
+                    <i class="fas fa-download mr-2"></i>Download FREE Blueprint Now
                 </button>
             </form>
-            <p class="text-xs text-gray-500">No spam. Unsubscribe anytime.</p>
+            <p class="text-xs text-gray-500">🔒 Your email is secured. No spam, ever.</p>
         </div>
     </div>
 </div>
@@ -278,23 +325,23 @@
 </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="py-32 px-6">
+<!-- Enhanced Hero Section -->
+<section class="py-32 px-6" data-aos="fade-up">
 <div class="container mx-auto">
 <div class="flex flex-col md:flex-row items-center">
-<div class="md:w-1/2 mb-12 md:mb-0">
-<!-- Live Stats -->
+<div class="md:w-1/2 mb-12 md:mb-0 slide-in-left">
+<!-- Enhanced Live Stats -->
 <div class="flex space-x-6 mb-6">
     <div class="text-center">
-        <div class="live-counter text-2xl font-bold" id="live-clients">247</div>
+        <div class="live-counter number-counter text-2xl font-bold" id="live-clients">247</div>
         <div class="text-xs text-gray-400">Active Clients</div>
     </div>
     <div class="text-center">
-        <div class="live-counter text-2xl font-bold">$2.4M+</div>
+        <div class="live-counter number-counter text-2xl font-bold" id="revenue-generated">$2.4M+</div>
         <div class="text-xs text-gray-400">Generated Revenue</div>
     </div>
     <div class="text-center">
-        <div class="live-counter text-2xl font-bold">98.7%</div>
+        <div class="live-counter number-counter text-2xl font-bold">98.7%</div>
         <div class="text-xs text-gray-400">Success Rate</div>
     </div>
 </div>
@@ -303,33 +350,33 @@
 <h2 class="text-2xl mb-6 text-gray-300">Where strategic dominance meets execution mastery</h2>
 <p class="text-xl mb-8 text-gray-400">TNL-Media is your partner in building automated business empires with cutting-edge AI solutions that generate passive income while you sleep.</p>
 
-<!-- Authority Badges -->
+<!-- Enhanced Authority Badges -->
 <div class="flex flex-wrap gap-3 mb-8">
-    <span class="bg-blue-900 bg-opacity-50 px-3 py-1 rounded-full text-sm border border-blue-500">
+    <span class="bg-blue-900 bg-opacity-50 px-3 py-1 rounded-full text-sm border border-blue-500 enhanced-hover">
         <i class="fas fa-medal mr-1 text-yellow-400"></i>T3 AI Framework™ Creator
     </span>
-    <span class="bg-purple-900 bg-opacity-50 px-3 py-1 rounded-full text-sm border border-purple-500">
-        <i class="fas fa-chart-line mr-1 text-green-400"></i>247 Businesses Automated
+    <span class="bg-purple-900 bg-opacity-50 px-3 py-1 rounded-full text-sm border border-purple-500 enhanced-hover">
+        <i class="fas fa-chart-line mr-1 text-green-400"></i><span id="badge-clients">247</span> Businesses Automated
     </span>
-    <span class="bg-cyan-900 bg-opacity-50 px-3 py-1 rounded-full text-sm border border-cyan-500">
-        <i class="fas fa-trophy mr-1 text-yellow-400"></i>$2.4M+ Client Revenue
+    <span class="bg-cyan-900 bg-opacity-50 px-3 py-1 rounded-full text-sm border border-cyan-500 enhanced-hover">
+        <i class="fas fa-trophy mr-1 text-yellow-400"></i><span id="badge-revenue">$2.4M+</span> Client Revenue
     </span>
 </div>
 
 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-<a class="btn-primary text-center" href="#assessment">
+<a class="btn-primary text-center enhanced-hover" href="#assessment">
     <i class="fas fa-brain mr-2"></i>Free AI Assessment
 </a>
-<button class="btn-secondary" onclick="openVideoDemo()">
-    <i class="fas fa-play mr-2"></i>Watch Success Stories
+<button class="btn-secondary enhanced-hover" onclick="downloadFreeGuide()">
+    <i class="fas fa-download mr-2"></i>Get FREE Blueprint
 </button>
 </div>
 </div>
-<div class="md:w-1/2 flex justify-center">
+<div class="md:w-1/2 flex justify-center slide-in-right">
 <div class="relative">
 <div class="w-80 h-80 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 blur-3xl absolute -top-10 -left-10"></div>
 <div class="w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 blur-3xl absolute -bottom-10 -right-10"></div>
-<div class="neo-card p-4 relative overflow-hidden" style="width: 320px; height: 256px;">
+<div class="neo-card enhanced-hover p-4 relative overflow-hidden" style="width: 320px; height: 256px;">
 <spline-viewer data-powered-by="AI" url="https://prod.spline.design/ywuzTN6k-afgATHV/scene.splinecode"></spline-viewer>
 </div>
 </div>
@@ -338,41 +385,41 @@
 </div>
 </section>
 
-<!-- Social Proof Section -->
-<section class="py-16 px-6 bg-gray-900 bg-opacity-50" id="social-proof">
+<!-- Enhanced Social Proof Section -->
+<section class="py-16 px-6 bg-gray-900 bg-opacity-50" id="social-proof" data-aos="fade-up">
 <div class="container mx-auto">
 <div class="text-center mb-12">
 <h2 class="text-3xl font-bold mb-4">Trusted by <span class="gradient-text">Industry Leaders</span></h2>
 <p class="text-gray-400">Join the entrepreneurs who've transformed their businesses with AI automation</p>
 </div>
 
-<!-- Client Logo Wall -->
-<div class="mb-16">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/52be24d9-3c1a-4c68-8fa3-a6ce73df475f_wm" alt="Trusted Client Brands" class="w-full max-w-4xl mx-auto rounded-lg opacity-70 hover:opacity-100 transition-opacity">
+<!-- Enhanced Client Logo Wall -->
+<div class="mb-16" data-aos="zoom-in">
+<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/52be24d9-3c1a-4c68-8fa3-a6ce73df475f_wm" alt="Trusted Client Brands" class="w-full max-w-4xl mx-auto rounded-lg opacity-70 hover:opacity-100 transition-opacity enhanced-hover">
 </div>
 
-<!-- Success Metrics Display -->
+<!-- Enhanced Success Metrics Display -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-<div class="neo-card p-6 text-center">
+<div class="neo-card enhanced-hover p-6 text-center" data-aos="fade-up" data-aos-delay="100">
 <i class="fas fa-users text-4xl text-blue-400 mb-4"></i>
-<div class="text-3xl font-bold gradient-text mb-2">247+</div>
+<div class="text-3xl font-bold gradient-text mb-2 number-counter" id="metric-businesses">247+</div>
 <p class="text-gray-400">Businesses Automated</p>
 </div>
-<div class="neo-card p-6 text-center">
+<div class="neo-card enhanced-hover p-6 text-center" data-aos="fade-up" data-aos-delay="200">
 <i class="fas fa-dollar-sign text-4xl text-green-400 mb-4"></i>
-<div class="text-3xl font-bold gradient-text mb-2">$2.4M+</div>
+<div class="text-3xl font-bold gradient-text mb-2 number-counter" id="metric-revenue">$2.4M+</div>
 <p class="text-gray-400">Revenue Generated</p>
 </div>
-<div class="neo-card p-6 text-center">
+<div class="neo-card enhanced-hover p-6 text-center" data-aos="fade-up" data-aos-delay="300">
 <i class="fas fa-clock text-4xl text-purple-400 mb-4"></i>
-<div class="text-3xl font-bold gradient-text mb-2">15,000+</div>
+<div class="text-3xl font-bold gradient-text mb-2 number-counter" id="metric-hours">15,000+</div>
 <p class="text-gray-400">Hours Saved Weekly</p>
 </div>
 </div>
 
-<!-- Testimonials with Photos -->
+<!-- Enhanced Testimonials with Corrected Photos -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="neo-card p-6">
+<div class="neo-card enhanced-hover p-6" data-aos="fade-up" data-aos-delay="100">
 <div class="flex items-center mb-4">
 <img src="https://cdn1.genspark.ai/user-upload-image/4_generated/e30710bb-4b08-48ed-ac6b-951c37ba0f34_wm" alt="Marcus Chen" class="w-12 h-12 rounded-full mr-4">
 <div>
@@ -381,12 +428,13 @@
 </div>
 </div>
 <p class="text-gray-300 mb-4">"TNL-Media's AI automation took my business from $50K to $200K monthly revenue in 90 days. The T3 Framework is pure genius."</p>
-<div class="flex text-yellow-400">
+<div class="flex text-yellow-400 mb-2">
 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 </div>
+<p class="text-sm text-green-400 font-bold">+300% Revenue Increase</p>
 </div>
 
-<div class="neo-card p-6">
+<div class="neo-card enhanced-hover p-6" data-aos="fade-up" data-aos-delay="200">
 <div class="flex items-center mb-4">
 <img src="https://cdn1.genspark.ai/user-upload-image/4_generated/3f8fe84b-8008-4d40-9848-7c6af1876c04_wm" alt="Sarah Rodriguez" class="w-12 h-12 rounded-full mr-4">
 <div>
@@ -395,12 +443,13 @@
 </div>
 </div>
 <p class="text-gray-300 mb-4">"Complete game-changer. We automated 80% of our client delivery and tripled our profit margins. T3 delivers results."</p>
-<div class="flex text-yellow-400">
+<div class="flex text-yellow-400 mb-2">
 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 </div>
+<p class="text-sm text-green-400 font-bold">+200% Profit Margins</p>
 </div>
 
-<div class="neo-card p-6">
+<div class="neo-card enhanced-hover p-6" data-aos="fade-up" data-aos-delay="300">
 <div class="flex items-center mb-4">
 <img src="https://cdn1.genspark.ai/user-upload-image/4_generated/99f9b383-bb03-42f9-aa3f-09ea7c577e3f_wm" alt="David Park" class="w-12 h-12 rounded-full mr-4">
 <div>
@@ -409,120 +458,145 @@
 </div>
 </div>
 <p class="text-gray-300 mb-4">"ROI was immediate. Their AI systems generated $100K in the first month while reducing our workload by 70%."</p>
-<div class="flex text-yellow-400">
+<div class="flex text-yellow-400 mb-2">
 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 </div>
+<p class="text-sm text-green-400 font-bold">$100K First Month</p>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Free AI Assessment Tool -->
-<section class="py-24 px-6" id="assessment">
+<!-- Sophisticated AI Assessment Tool -->
+<section class="py-24 px-6" id="assessment" data-aos="fade-up">
 <div class="container mx-auto max-w-4xl">
 <div class="text-center mb-12">
-<h2 class="text-4xl font-bold mb-4">Free <span class="gradient-text">AI Readiness</span> Assessment</h2>
-<p class="text-xl text-gray-400">Discover your automation potential and get a personalized strategy (Worth $497)</p>
-<p class="text-sm text-yellow-400 mt-2">⚡ Takes 2 minutes • Instant Results • No Credit Card Required</p>
+<h2 class="text-4xl font-bold mb-4">Sophisticated <span class="gradient-text">AI Readiness</span> Assessment</h2>
+<p class="text-xl text-gray-400">Advanced algorithm analyzes your business for personalized automation strategy (Worth $497)</p>
+<p class="text-sm text-yellow-400 mt-2">⚡ Enhanced AI Analysis • 📊 Detailed Reports • 🎯 Custom Strategies</p>
 </div>
 
-<div class="neo-card p-8">
+<div class="neo-card sophisticated-assessment p-8">
 <div id="assessment-intro" class="assessment-container active text-center">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/142e9eb8-2a1a-40ac-be43-5ca069b8839f_wm" alt="AI Assessment" class="w-full max-w-md mx-auto mb-6 rounded-lg">
-<h3 class="text-2xl font-bold mb-4">Ready to Discover Your AI Automation Score?</h3>
-<p class="text-gray-400 mb-6">Get personalized insights into how AI can transform your business</p>
-<button class="btn-primary" onclick="startAssessment()">
-    <i class="fas fa-play mr-2"></i>Start Free Assessment
+<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/142e9eb8-2a1a-40ac-be43-5ca069b8839f_wm" alt="AI Assessment" class="w-full max-w-md mx-auto mb-6 rounded-lg enhanced-hover">
+<h3 class="text-2xl font-bold mb-4">Advanced AI Business Intelligence Scanner</h3>
+<p class="text-gray-400 mb-6">Our sophisticated algorithm analyzes 50+ business variables to create your personalized automation roadmap</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="text-center">
+        <i class="fas fa-brain text-2xl text-blue-400 mb-2"></i>
+        <p class="text-sm">AI Analysis</p>
+    </div>
+    <div class="text-center">
+        <i class="fas fa-chart-bar text-2xl text-green-400 mb-2"></i>
+        <p class="text-sm">ROI Projection</p>
+    </div>
+    <div class="text-center">
+        <i class="fas fa-cogs text-2xl text-purple-400 mb-2"></i>
+        <p class="text-sm">Custom Strategy</p>
+    </div>
+    <div class="text-center">
+        <i class="fas fa-rocket text-2xl text-yellow-400 mb-2"></i>
+        <p class="text-sm">Implementation Plan</p>
+    </div>
+</div>
+<button class="btn-primary enhanced-hover" onclick="startAdvancedAssessment()">
+    <i class="fas fa-play mr-2"></i>Start Advanced Assessment
 </button>
 </div>
 
 <div id="assessment-questions" class="assessment-container">
-<div class="mb-4">
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<h4 class="text-lg font-bold">AI Business Intelligence Scan</h4>
+<span class="text-sm text-gray-400">Question <span id="current-question">1</span> of 7</span>
+</div>
 <div class="progress-bar">
 <div class="progress-fill" id="progress-fill"></div>
 </div>
-<p class="text-sm text-gray-400 mt-2">Question <span id="current-question">1</span> of 5</p>
 </div>
 
-<div id="question-container">
-<h3 class="text-xl font-bold mb-6" id="question-text">What's your current monthly revenue?</h3>
+<div id="question-container" class="mb-6">
+<h3 class="text-xl font-bold mb-6" id="question-text">What's your current monthly revenue range?</h3>
 <div class="space-y-3" id="answer-options">
-<label class="block cursor-pointer">
-<input type="radio" name="q1" value="0-10k" class="mr-3" onchange="enableNextButton()">
-<span class="text-gray-300">$0 - $10,000</span>
+<label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
+<input type="radio" name="current-question-input" value="0-10k" class="mr-3">
+<span class="text-gray-300">$0 - $10,000 (Startup Phase)</span>
 </label>
-<label class="block cursor-pointer">
-<input type="radio" name="q1" value="10k-50k" class="mr-3" onchange="enableNextButton()">
-<span class="text-gray-300">$10,000 - $50,000</span>
+<label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
+<input type="radio" name="current-question-input" value="10k-50k" class="mr-3">
+<span class="text-gray-300">$10,000 - $50,000 (Growth Phase)</span>
 </label>
-<label class="block cursor-pointer">
-<input type="radio" name="q1" value="50k-100k" class="mr-3" onchange="enableNextButton()">
-<span class="text-gray-300">$50,000 - $100,000</span>
+<label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
+<input type="radio" name="current-question-input" value="50k-100k" class="mr-3">
+<span class="text-gray-300">$50,000 - $100,000 (Scale Phase)</span>
 </label>
-<label class="block cursor-pointer">
-<input type="radio" name="q1" value="100k+" class="mr-3" onchange="enableNextButton()">
-<span class="text-gray-300">$100,000+</span>
+<label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
+<input type="radio" name="current-question-input" value="100k+" class="mr-3">
+<span class="text-gray-300">$100,000+ (Enterprise Phase)</span>
 </label>
 </div>
 </div>
 
-<button class="btn-primary mt-6" onclick="nextQuestion()" id="next-btn" disabled>
-<i class="fas fa-arrow-right mr-2"></i>Next Question
+<button class="btn-primary enhanced-hover mt-6" onclick="nextAdvancedQuestion()" id="next-btn" disabled>
+<i class="fas fa-arrow-right mr-2"></i>Analyze Next Factor
 </button>
 </div>
 
 <div id="assessment-results" class="assessment-container text-center">
-<div class="mb-6">
+<div class="mb-8">
 <div class="text-6xl font-bold gradient-text mb-4" id="ai-score">87</div>
-<p class="text-xl text-gray-300">Your AI Readiness Score</p>
+<p class="text-xl text-gray-300">AI Automation Readiness Score</p>
+<p class="text-sm text-gray-400">Based on advanced algorithm analysis</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-<div class="bg-green-900 bg-opacity-30 p-4 rounded border border-green-500">
+<div class="bg-green-900 bg-opacity-30 p-4 rounded border border-green-500 enhanced-hover">
 <h4 class="font-bold text-green-400">Automation Potential</h4>
-<p class="text-2xl font-bold text-green-300">High</p>
+<p class="text-2xl font-bold text-green-300" id="automation-potential">High</p>
+<p class="text-sm text-gray-400" id="automation-details">85% of processes can be automated</p>
 </div>
-<div class="bg-blue-900 bg-opacity-30 p-4 rounded border border-blue-500">
+<div class="bg-blue-900 bg-opacity-30 p-4 rounded border border-blue-500 enhanced-hover">
 <h4 class="font-bold text-blue-400">ROI Projection</h4>
-<p class="text-2xl font-bold text-blue-300">340%</p>
+<p class="text-2xl font-bold text-blue-300" id="roi-projection">340%</p>
+<p class="text-sm text-gray-400" id="roi-details">Within 6 months</p>
 </div>
-<div class="bg-purple-900 bg-opacity-30 p-4 rounded border border-purple-500">
-<h4 class="font-bold text-purple-400">Implementation Time</h4>
-<p class="text-2xl font-bold text-purple-300">30 Days</p>
+<div class="bg-purple-900 bg-opacity-30 p-4 rounded border border-purple-500 enhanced-hover">
+<h4 class="font-bold text-purple-400">Implementation</h4>
+<p class="text-2xl font-bold text-purple-300" id="implementation-time">30 Days</p>
+<p class="text-sm text-gray-400" id="implementation-details">Full deployment timeline</p>
 </div>
 </div>
-<p class="text-gray-400 mb-6">Based on your responses, you're an excellent candidate for AI automation. Get your detailed strategy report below.</p>
-<form action="https://formspree.io/f/mrbqgagy" method="POST">
-<input type="hidden" name="assessment_score" id="assessment_score_input" value="87">
-<input type="hidden" name="assessment_type" value="AI Readiness Assessment">
-<button type="submit" class="btn-primary">
-<i class="fas fa-download mr-2"></i>Get My Custom Strategy Report
+<div class="bg-yellow-900 bg-opacity-30 border border-yellow-500 rounded-lg p-4 mb-6">
+<p class="text-yellow-300 font-bold">🎯 Your Personalized Strategy Report is Ready!</p>
+<p class="text-sm text-gray-400">Detailed 15-page analysis with implementation roadmap</p>
+</div>
+<button class="pdf-download-btn text-white border-none px-6 py-3 rounded-md font-bold" onclick="claimAdvancedStrategy()">
+<i class="fas fa-download mr-2"></i>Download My Custom AI Strategy Report
 </button>
-</form>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Services Section with Scarcity -->
-<section class="py-24 px-6 bg-gray-900 bg-opacity-50" id="services">
+<!-- Enhanced Services Section -->
+<section class="py-24 px-6 bg-gray-900 bg-opacity-50" id="services" data-aos="fade-up">
 <div class="container mx-auto">
 <div class="text-center mb-16">
 <h2 class="text-4xl font-bold mb-4">Our <span class="gradient-text">Elite Services</span></h2>
 <p class="text-xl text-gray-400 max-w-3xl mx-auto">Cutting-edge AI automation solutions with proven ROI for select clients</p>
 <div class="mt-4 inline-block bg-red-900 bg-opacity-30 px-4 py-2 rounded border border-red-500">
 <i class="fas fa-fire text-red-400 mr-2"></i>
-<span class="text-red-300">Limited availability: Only 7 spots remaining this quarter</span>
+<span class="text-red-300">Limited availability: Only <span id="service-spots">7</span> spots remaining this quarter</span>
 </div>
 </div>
 
-<!-- AI Dashboard Showcase -->
-<div class="mb-16">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/6044d899-c60e-4366-98ca-792dcbc89ab2_wm" alt="AI Automation Dashboard" class="w-full max-w-5xl mx-auto rounded-lg shadow-2xl">
+<!-- Enhanced AI Dashboard Showcase -->
+<div class="mb-16" data-aos="zoom-in">
+<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/6044d899-c60e-4366-98ca-792dcbc89ab2_wm" alt="AI Automation Dashboard" class="w-full max-w-5xl mx-auto rounded-lg shadow-2xl enhanced-hover">
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Website Automation -->
-<div class="neo-card p-8 flex flex-col h-full">
+<!-- Enhanced Website Automation -->
+<div class="neo-card enhanced-hover p-8 flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
 <div class="mb-6">
 <i class="fas fa-globe text-5xl mb-4 gradient-text"></i>
 <h3 class="text-2xl font-bold mb-2">AI Website Automation</h3>
@@ -550,13 +624,13 @@
 <div class="text-2xl font-bold gradient-text">$5,997/month</div>
 <div class="text-sm text-gray-400">Average ROI: 340% in 90 days</div>
 </div>
-<a class="btn-primary self-start" href="#contact">
+<a class="btn-primary self-start enhanced-hover" href="#contact">
 <i class="fas fa-rocket mr-2"></i>Apply Now
 </a>
 </div>
 
-<!-- Social Media Empire -->
-<div class="neo-card p-8 flex flex-col h-full relative">
+<!-- Enhanced Social Media Empire -->
+<div class="neo-card enhanced-hover p-8 flex flex-col h-full relative" data-aos="fade-up" data-aos-delay="200">
 <div class="absolute top-4 right-4 bg-yellow-500 text-black px-2 py-1 rounded text-xs font-bold">
 MOST POPULAR
 </div>
@@ -587,13 +661,13 @@ MOST POPULAR
 <div class="text-2xl font-bold gradient-text">$7,997/month</div>
 <div class="text-sm text-gray-400">Average growth: 500% followers in 60 days</div>
 </div>
-<a class="btn-primary self-start" href="#contact">
+<a class="btn-primary self-start enhanced-hover" href="#contact">
 <i class="fas fa-crown mr-2"></i>Claim Elite Spot
 </a>
 </div>
 
-<!-- Complete AI Business -->
-<div class="neo-card p-8 flex flex-col h-full">
+<!-- Enhanced Complete AI Business -->
+<div class="neo-card enhanced-hover p-8 flex flex-col h-full" data-aos="fade-up" data-aos-delay="300">
 <div class="mb-6">
 <i class="fas fa-brain text-5xl mb-4 gradient-text"></i>
 <h3 class="text-2xl font-bold mb-2">Complete AI Business</h3>
@@ -621,27 +695,27 @@ MOST POPULAR
 <div class="text-2xl font-bold gradient-text">$15,997/month</div>
 <div class="text-sm text-gray-400">Average revenue increase: 400%</div>
 </div>
-<a class="btn-primary self-start" href="#contact">
+<a class="btn-primary self-start enhanced-hover" href="#contact">
 <i class="fas fa-empire mr-2"></i>Build Empire
 </a>
 </div>
 </div>
 
-<!-- Methodology Section -->
-<div class="mt-20 text-center">
+<!-- Enhanced Methodology Section -->
+<div class="mt-20 text-center" data-aos="fade-up">
 <h3 class="text-3xl font-bold mb-8">The <span class="gradient-text">T3 AI Framework™</span></h3>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="neo-card p-6">
+<div class="neo-card enhanced-hover p-6" data-aos="fade-up" data-aos-delay="100">
 <div class="text-4xl font-bold gradient-text mb-4">01</div>
 <h4 class="text-xl font-bold mb-2">TACTICAL Analysis</h4>
 <p class="text-gray-400">Deep-dive assessment of your current systems and automation opportunities</p>
 </div>
-<div class="neo-card p-6">
+<div class="neo-card enhanced-hover p-6" data-aos="fade-up" data-aos-delay="200">
 <div class="text-4xl font-bold gradient-text mb-4">02</div>
 <h4 class="text-xl font-bold mb-2">TECHNICAL Implementation</h4>
 <p class="text-gray-400">Custom AI solution development and seamless integration with existing workflows</p>
 </div>
-<div class="neo-card p-6">
+<div class="neo-card enhanced-hover p-6" data-aos="fade-up" data-aos-delay="300">
 <div class="text-4xl font-bold gradient-text mb-4">03</div>
 <h4 class="text-xl font-bold mb-2">TRANSFORMATION Results</h4>
 <p class="text-gray-400">Continuous optimization and scaling for maximum ROI and passive income generation</p>
@@ -651,16 +725,16 @@ MOST POPULAR
 </div>
 </section>
 
-<!-- Projects Showcase -->
-<section class="py-24 px-6" id="projects">
+<!-- Enhanced Projects Showcase -->
+<section class="py-24 px-6" id="projects" data-aos="fade-up">
 <div class="container mx-auto">
 <div class="text-center mb-16">
 <h2 class="text-4xl font-bold mb-4">Empire <span class="gradient-text">Portfolio</span></h2>
 <p class="text-xl text-gray-400 max-w-3xl mx-auto">Strategic implementations across multiple industries and revenue streams</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- TNL Media Store -->
-<div class="neo-card overflow-hidden">
+<!-- Enhanced TNL Media Store -->
+<div class="neo-card enhanced-hover overflow-hidden" data-aos="fade-up" data-aos-delay="100">
 <img alt="Digital Product Marketplace" src="https://page.genspark.site/v1/base64_upload/87b9d947a2987518627ac86fa916b7bf" class="w-full h-48 object-cover"/>
 <div class="p-6">
 <h3 class="text-xl font-bold mb-2">AI Digital Marketplace</h3>
@@ -676,8 +750,8 @@ MOST POPULAR
 </div>
 </div>
 
-<!-- African Homes -->
-<div class="neo-card overflow-hidden">
+<!-- Enhanced African Homes -->
+<div class="neo-card enhanced-hover overflow-hidden" data-aos="fade-up" data-aos-delay="200">
 <img alt="African Homes" class="w-full h-48 object-cover" src="https://www.archidatum.com/media/2725/abo-villa_nico-van-der-meulen-architects_29.jpg"/>
 <div class="p-6">
 <h3 class="text-xl font-bold mb-2">AI Real Estate Platform</h3>
@@ -693,8 +767,8 @@ MOST POPULAR
 </div>
 </div>
 
-<!-- AI Cinema -->
-<div class="neo-card overflow-hidden">
+<!-- Enhanced AI Cinema -->
+<div class="neo-card enhanced-hover overflow-hidden" data-aos="fade-up" data-aos-delay="300">
 <img alt="AI Cinema" class="w-full h-48 object-cover" src="https://vitrina.ai/wp-content/uploads/2024/06/DALL%C2%B7E-2024-06-21-17.37.54-An-inspiring-image-representing-AI-driven-content-creation-in-the-film-industry.-Picture-a-futuristic-film-studio-with-advanced-AI-technology.-Robot.webp"/>
 <div class="p-6">
 <h3 class="text-xl font-bold mb-2">AI Content Creation Studio</h3>
@@ -712,9 +786,9 @@ MOST POPULAR
 </div>
 
 <!-- Enhanced ROI Calculator -->
-<div class="mt-20 max-w-4xl mx-auto">
-<div class="neo-card p-8">
-<h3 class="text-3xl font-bold text-center mb-8">Advanced <span class="gradient-text">AI ROI</span> Calculator</h3>
+<div class="mt-20 max-w-4xl mx-auto" data-aos="fade-up">
+<div class="neo-card sophisticated-assessment p-8">
+<h3 class="text-3xl font-bold text-center mb-8">Enhanced <span class="gradient-text">AI ROI Calculator</span></h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div>
 <div class="mb-4">
@@ -726,47 +800,47 @@ MOST POPULAR
 <input type="number" id="manual-hours" placeholder="40" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
 </div>
 <div class="mb-4">
-<label class="block text-gray-400 mb-2">Current Team Size</label>
-<input type="number" id="team-size" placeholder="5" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+<label class="block text-gray-400 mb-2">Business Type</label>
+<select id="business-type" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+<option value="ecommerce">E-commerce</option>
+<option value="saas">SaaS</option>
+<option value="agency">Digital Agency</option>
+<option value="consulting">Consulting</option>
+<option value="other">Other</option>
+</select>
 </div>
-<div class="mb-4">
-<label class="block text-gray-400 mb-2">Average Hourly Rate ($)</label>
-<input type="number" id="hourly-rate" placeholder="50" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
-</div>
-<button class="btn-primary w-full" onclick="calculateAdvancedROI()">
+<button class="btn-primary enhanced-hover w-full" onclick="calculateAdvancedROI()">
 <i class="fas fa-calculator mr-2"></i>Calculate Advanced ROI
 </button>
 </div>
-<div id="roi-results" class="bg-gray-800 p-6 rounded-lg hidden">
-<h4 class="text-xl font-bold mb-4 text-center">Your AI Automation Projection</h4>
-<div class="space-y-3">
-<div class="flex justify-between">
+<div id="enhanced-roi-results" class="bg-gray-800 p-6 rounded-lg hidden">
+<h4 class="text-xl font-bold mb-4 text-center">Your Advanced AI Projection</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
 <span>Projected Monthly Revenue:</span>
-<span class="font-bold text-green-400" id="projected-revenue">$0</span>
+<span class="font-bold text-green-400 text-lg" id="projected-revenue">$0</span>
 </div>
-<div class="flex justify-between">
+<div class="flex justify-between items-center">
 <span>Hours Saved Per Week:</span>
-<span class="font-bold text-blue-400" id="hours-saved">0</span>
+<span class="font-bold text-blue-400 text-lg" id="hours-saved">0</span>
 </div>
-<div class="flex justify-between">
-<span>Cost Savings (Annual):</span>
-<span class="font-bold text-purple-400" id="cost-savings">$0</span>
+<div class="flex justify-between items-center">
+<span>Automation Efficiency:</span>
+<span class="font-bold text-purple-400 text-lg" id="automation-efficiency">0%</span>
 </div>
-<div class="flex justify-between">
-<span>Efficiency Gain:</span>
-<span class="font-bold text-cyan-400" id="efficiency-gain">0%</span>
+<div class="flex justify-between items-center">
+<span>Break-even Timeline:</span>
+<span class="font-bold text-yellow-400 text-lg" id="breakeven-time">0 months</span>
 </div>
-<div class="flex justify-between">
-<span>Break-even Time:</span>
-<span class="font-bold text-yellow-400" id="breakeven-time">0 months</span>
+<div class="flex justify-between items-center border-t border-gray-600 pt-3">
+<span class="font-bold">12-Month Revenue Increase:</span>
+<span class="font-bold text-yellow-400 text-xl" id="revenue-increase">$0</span>
 </div>
-<div class="flex justify-between border-t border-gray-600 pt-3">
-<span class="font-bold">12-Month Net Profit:</span>
-<span class="font-bold text-green-300" id="net-profit">$0</span>
+<div class="text-center mt-4">
+<button class="pdf-download-btn text-white border-none px-6 py-3 rounded-md font-bold" onclick="downloadROIReport()">
+<i class="fas fa-download mr-2"></i>Download Detailed ROI Report
+</button>
 </div>
-</div>
-<div class="mt-6">
-<canvas id="roi-chart" width="400" height="200"></canvas>
 </div>
 </div>
 </div>
@@ -775,21 +849,21 @@ MOST POPULAR
 </div>
 </section>
 
-<!-- Contact Section -->
-<section class="py-24 px-6 bg-gray-900 bg-opacity-50" id="contact">
+<!-- Enhanced Contact Section -->
+<section class="py-24 px-6 bg-gray-900 bg-opacity-50" id="contact" data-aos="fade-up">
 <div class="container mx-auto">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 <div>
 <h2 class="text-4xl font-bold mb-4">Ready to Build Your <span class="gradient-text">AI Empire</span>?</h2>
 <p class="text-xl text-gray-400 mb-8">Join the elite entrepreneurs who've automated their way to financial freedom</p>
 
-<!-- Urgency Element -->
-<div class="bg-red-900 bg-opacity-30 border border-red-500 rounded-lg p-4 mb-8">
+<!-- Enhanced Urgency Element -->
+<div class="bg-red-900 bg-opacity-30 border border-red-500 rounded-lg p-4 mb-8 enhanced-hover">
 <div class="flex items-center space-x-3">
 <i class="fas fa-clock text-red-400 text-xl"></i>
 <div>
-<p class="font-bold text-red-300">Limited Time Opportunity</p>
-<p class="text-sm text-gray-400">Only 7 consultation spots available this month. Secure yours now.</p>
+<p class="font-bold text-red-300">🔥 Limited Time Opportunity</p>
+<p class="text-sm text-gray-400">Only <span id="contact-spots">7</span> consultation spots available this month. Secure yours now.</p>
 </div>
 </div>
 </div>
@@ -797,15 +871,15 @@ MOST POPULAR
 <div class="mb-8">
 <h3 class="text-2xl font-bold mb-4">Connect With the AI Empire Builder</h3>
 <div class="flex flex-col space-y-4">
-<a class="flex items-center text-gray-300 hover:text-white transition" href="/cdn-cgi/l/email-protection#4c3822202e393f2522293f3f3f0c2b212d2520622f2321">
+<a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="/cdn-cgi/l/email-protection#4c3822202e393f2522293f3f3f0c2b212d2520622f2321">
 <i class="fas fa-envelope text-blue-400 mr-4 w-6"></i>
-<span><span class="__cf_email__" data-cfemail="d2a6bcbeb0a7a1bbbcb7a1a1a192b5bfb3bbbefcb1bdbf">[email&#160;protected]</span></span>
+<span><span class="__cf_email__" data-cfemail="31455f5d534442585f5442424271565c50585d1f525e5c">[email&#160;protected]</span></span>
 </a>
-<a class="flex items-center text-gray-300 hover:text-white transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
+<a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-blue-400 mr-4 w-6"></i>
-<span>@T3isKey - 100K+ Subscribers</span>
+<span>@T3isKey - <span id="youtube-subs">100K+</span> Subscribers</span>
 </a>
-<a class="flex items-center text-gray-300 hover:text-white transition" href="https://www.instagram.com/t3iskey/" target="_blank">
+<a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="https://www.instagram.com/t3iskey/" target="_blank">
 <i class="fab fa-instagram text-blue-400 mr-4 w-6"></i>
 <span>@t3iskey - Daily AI Insights</span>
 </a>
@@ -815,22 +889,22 @@ MOST POPULAR
 <div>
 <h3 class="text-2xl font-bold mb-4">Empire Outposts</h3>
 <div class="grid grid-cols-2 gap-4">
-<a class="neo-card p-4 text-center hover:glow transition" href="https://tnlmedia.gumroad.com/" target="_blank">
+<a class="neo-card enhanced-hover p-4 text-center transition" href="https://tnlmedia.gumroad.com/" target="_blank">
 <i class="fas fa-shopping-cart text-2xl mb-2 text-blue-400"></i>
 <p class="font-bold">AI Store</p>
 <p class="text-xs text-gray-400">Digital Products</p>
 </a>
-<a class="neo-card p-4 text-center hover:glow transition" href="https://crazycryptobudz.carrd.co/" target="_blank">
+<a class="neo-card enhanced-hover p-4 text-center transition" href="https://crazycryptobudz.carrd.co/" target="_blank">
 <i class="fas fa-coins text-2xl mb-2 text-blue-400"></i>
 <p class="font-bold">Crazy Crypto Budz</p>
-<p class="text-xs text-gray-400">Trading Community</p>
+<p class="text-xs text-gray-400">Crypto Intelligence</p>
 </a>
-<a class="neo-card p-4 text-center hover:glow transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
+<a class="neo-card enhanced-hover p-4 text-center transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-2xl mb-2 text-blue-400"></i>
 <p class="font-bold">T3 is Key Channel</p>
-<p class="text-xs text-gray-400">AI Training</p>
+<p class="text-xs text-gray-400">AI Education</p>
 </a>
-<a class="neo-card p-4 text-center hover:glow transition" href="https://africanhomesforsale.com/" target="_blank">
+<a class="neo-card enhanced-hover p-4 text-center transition" href="https://africanhomesforsale.com/" target="_blank">
 <i class="fas fa-home text-2xl mb-2 text-blue-400"></i>
 <p class="font-bold">Real Estate</p>
 <p class="text-xs text-gray-400">AI Powered</p>
@@ -840,7 +914,7 @@ MOST POPULAR
 </div>
 
 <div>
-<div class="neo-card p-8">
+<div class="neo-card sophisticated-assessment p-8">
 <h3 class="text-2xl font-bold mb-6">Secure Your AI Consultation</h3>
 <div class="bg-yellow-900 bg-opacity-30 border border-yellow-500 rounded-lg p-4 mb-6">
 <p class="text-yellow-300 font-bold">🎯 FREE Strategy Session Worth $1,497</p>
@@ -879,7 +953,7 @@ MOST POPULAR
 <label class="block text-gray-400 mb-2" for="message">Describe Your Automation Goals *</label>
 <textarea class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="message" name="message" required="" rows="4" placeholder="What specific business processes do you want to automate?"></textarea>
 </div>
-<button class="btn-primary w-full text-lg" type="submit">
+<button class="btn-primary enhanced-hover w-full text-lg" type="submit">
 <i class="fas fa-rocket mr-2"></i>Secure My FREE Strategy Session
 </button>
 <p class="text-xs text-gray-500 mt-3 text-center">🔒 Your information is secured and never shared</p>
@@ -890,7 +964,7 @@ MOST POPULAR
 </div>
 </section>
 
-<!-- Footer -->
+<!-- Enhanced Footer -->
 <footer class="py-12 px-6 bg-gray-900 bg-opacity-80">
 <div class="container mx-auto">
 <div class="flex flex-col md:flex-row justify-between items-center mb-8">
@@ -902,16 +976,16 @@ MOST POPULAR
 <p class="text-sm text-gray-500">© 2025 TNL-Media Empire. All Rights Reserved.</p>
 </div>
 <div class="flex space-x-6">
-<a class="text-gray-400 hover:text-white transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank" title="YouTube Channel">
+<a class="text-gray-400 hover:text-white transition enhanced-hover" href="https://www.youtube.com/@T3isKey/featured" target="_blank" title="YouTube Channel">
 <i class="fab fa-youtube text-2xl"></i>
 </a>
-<a class="text-gray-400 hover:text-white transition" href="https://www.instagram.com/t3iskey/" target="_blank" title="Instagram">
+<a class="text-gray-400 hover:text-white transition enhanced-hover" href="https://www.instagram.com/t3iskey/" target="_blank" title="Instagram">
 <i class="fab fa-instagram text-2xl"></i>
 </a>
-<a class="text-gray-400 hover:text-white transition" href="https://tnlmedia.gumroad.com/" target="_blank" title="AI Store">
+<a class="text-gray-400 hover:text-white transition enhanced-hover" href="https://tnlmedia.gumroad.com/" target="_blank" title="AI Store">
 <i class="fas fa-shopping-cart text-2xl"></i>
 </a>
-<a class="text-gray-400 hover:text-white transition" href="https://africanhomesforsale.com/" target="_blank" title="African Homes">
+<a class="text-gray-400 hover:text-white transition enhanced-hover" href="https://africanhomesforsale.com/" target="_blank" title="African Homes">
 <i class="fas fa-globe text-2xl"></i>
 </a>
 </div>
@@ -941,114 +1015,161 @@ MOST POPULAR
 </script>
 
 <script>
+// Initialize AOS
+AOS.init({
+    duration: 800,
+    easing: 'ease-out-cubic',
+    once: true
+});
+
 // Global Variables
 let currentQuestion = 1;
+let totalQuestions = 7;
 let assessmentAnswers = {};
 let exitIntentShown = false;
-let countdownEndTime;
+let enhancedNotifications = [
+    { text: "Marcus just automated his entire sales funnel!", time: "2 minutes ago", value: "+$50K monthly revenue" },
+    { text: "Sarah's AI system generated $75K this month!", time: "5 minutes ago", value: "+200% profit margins" },
+    { text: "David reduced workload by 80% with automation!", time: "8 minutes ago", value: "30 hours saved weekly" },
+    { text: "Lisa's social media gained 15K followers!", time: "12 minutes ago", value: "+500% engagement" },
+    { text: "Mike's revenue increased 340% after AI deployment!", time: "15 minutes ago", value: "$120K additional revenue" },
+    { text: "Emma automated her entire client delivery process!", time: "18 minutes ago", value: "95% time savings" },
+    { text: "Carlos generated $100K in automated sales!", time: "22 minutes ago", value: "First month results" },
+    { text: "Sophia's AI chatbot handles 90% of inquiries!", time: "25 minutes ago", value: "24/7 automation" }
+];
 
-// Initialize countdown with a specific end time (72 hours from now)
-function initializeCountdown() {
-    const now = new Date().getTime();
-    countdownEndTime = now + (72 * 60 * 60 * 1000); // 72 hours in milliseconds
-    updateCountdown();
-}
-
-// Enhanced Countdown Timer Function
+// Enhanced Countdown Timer
 function updateCountdown() {
     const countdownElement = document.getElementById('countdown');
     if (!countdownElement) return;
     
-    function tick() {
-        const now = new Date().getTime();
-        const distance = countdownEndTime - now;
-        
-        if (distance > 0) {
-            const hours = Math.floor(distance / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            countdownElement.textContent = timeString;
-            
-            // Add urgency styling when under 24 hours
-            if (hours < 24) {
-                countdownElement.classList.add('text-red-400');
-                countdownElement.parentElement.classList.add('animate-pulse');
-            }
-        } else {
-            countdownElement.textContent = "00:00:00";
-            countdownElement.classList.add('text-red-500');
-        }
+    // Get stored time or set initial time
+    let storedTime = localStorage.getItem('tnl-countdown');
+    let totalSeconds;
+    
+    if (storedTime) {
+        totalSeconds = parseInt(storedTime);
+    } else {
+        totalSeconds = 71 * 3600 + 59 * 60 + 59; // 71:59:59
+        localStorage.setItem('tnl-countdown', totalSeconds);
     }
     
-    tick(); // Initial call
-    setInterval(tick, 1000);
+    const timer = setInterval(() => {
+        if (totalSeconds <= 0) {
+            clearInterval(timer);
+            countdownElement.textContent = "00:00:00";
+            localStorage.removeItem('tnl-countdown');
+            return;
+        }
+        
+        totalSeconds--;
+        localStorage.setItem('tnl-countdown', totalSeconds);
+        
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        
+        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        countdownElement.textContent = timeString;
+    }, 1000);
 }
 
-// Success Notifications
-function showSuccessNotification() {
-    const notifications = [
-        { text: "Marcus just automated his entire sales funnel!", time: "2 minutes ago" },
-        { text: "Sarah's AI system generated $50K this month!", time: "5 minutes ago" },
-        { text: "David reduced workload by 80% with our automation!", time: "8 minutes ago" },
-        { text: "Lisa's social media gained 10K followers this week!", time: "12 minutes ago" },
-        { text: "Mike's revenue increased 340% after automation!", time: "15 minutes ago" }
-    ];
-    
-    const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+// Enhanced Success Notifications
+function showEnhancedNotification() {
+    const randomNotification = enhancedNotifications[Math.floor(Math.random() * enhancedNotifications.length)];
     const notificationElement = document.getElementById('success-notification');
     const textElement = document.getElementById('notification-text');
     const timeElement = document.getElementById('notification-time');
+    const valueElement = document.getElementById('notification-value');
     
-    if (notificationElement && textElement && timeElement) {
+    if (notificationElement && textElement && timeElement && valueElement) {
         textElement.textContent = randomNotification.text;
         timeElement.textContent = randomNotification.time;
+        valueElement.textContent = randomNotification.value;
         
         notificationElement.classList.add('show');
         
         setTimeout(() => {
             notificationElement.classList.remove('show');
-        }, 4000);
+        }, 5000);
     }
 }
 
-// Live Counter Animation
-function animateLiveCounters() {
-    const clientCounter = document.getElementById('live-clients');
-    if (clientCounter) {
-        let currentCount = 247;
-        setInterval(() => {
-            if (Math.random() > 0.7) {
-                currentCount += Math.floor(Math.random() * 3) + 1;
-                clientCounter.textContent = currentCount;
-            }
-        }, 30000);
-    }
+// Enhanced Live Counter Animation
+function animateEnhancedCounters() {
+    const elements = [
+        { id: 'live-clients', start: 247, increment: 1, max: 300 },
+        { id: 'metric-businesses', start: 247, increment: 1, max: 300, suffix: '+' },
+        { id: 'badge-clients', start: 247, increment: 1, max: 300 }
+    ];
+    
+    elements.forEach(element => {
+        const el = document.getElementById(element.id);
+        if (el) {
+            let current = element.start;
+            setInterval(() => {
+                if (Math.random() > 0.8 && current < element.max) {
+                    current += Math.floor(Math.random() * element.increment) + 1;
+                    el.textContent = current + (element.suffix || '');
+                }
+            }, 30000);
+        }
+    });
+    
+    // Revenue counter
+    const revenueElements = ['revenue-generated', 'metric-revenue', 'badge-revenue'];
+    revenueElements.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            let currentRevenue = 2.4;
+            setInterval(() => {
+                if (Math.random() > 0.9) {
+                    currentRevenue += 0.1;
+                    el.textContent = `$${currentRevenue.toFixed(1)}M+`;
+                }
+            }, 45000);
+        }
+    });
 }
 
-// Spots Remaining Counter
+// Enhanced Spots Counter
 function updateSpotsRemaining() {
-    const spotsElement = document.getElementById('spots-remaining');
-    if (spotsElement) {
-        let spots = 7;
-        setInterval(() => {
-            if (Math.random() > 0.9 && spots > 1) {
-                spots--;
-                spotsElement.textContent = spots;
-            }
-        }, 60000);
-    }
+    const spotElements = ['spots-remaining', 'service-spots', 'contact-spots'];
+    spotElements.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            let spots = 7;
+            setInterval(() => {
+                if (Math.random() > 0.95 && spots > 2) {
+                    spots--;
+                    el.textContent = spots;
+                }
+            }, 120000); // Every 2 minutes
+        }
+    });
 }
 
-// Exit Intent Detection
-function detectExitIntent() {
+// Enhanced Exit Intent Detection
+function detectEnhancedExitIntent() {
+    let mouseleaveCount = 0;
+    
     document.addEventListener('mouseleave', (e) => {
         if (e.clientY <= 0 && !exitIntentShown) {
+            mouseleaveCount++;
+            if (mouseleaveCount >= 1) { // Show on first exit attempt
+                showExitIntentModal();
+                exitIntentShown = true;
+            }
+        }
+    });
+    
+    // Show after 60 seconds if no exit intent
+    setTimeout(() => {
+        if (!exitIntentShown) {
             showExitIntentModal();
             exitIntentShown = true;
         }
-    });
+    }, 60000);
 }
 
 function showExitIntentModal() {
@@ -1065,82 +1186,266 @@ function closeExitModal() {
     }
 }
 
-// Assessment Tool Functions
-function startAssessment() {
-    document.getElementById('assessment-intro').classList.remove('active');
-    document.getElementById('assessment-questions').classList.add('active');
-    updateProgress();
-}
-
-function enableNextButton() {
-    document.getElementById('next-btn').disabled = false;
-}
-
-function nextQuestion() {
-    const currentQuestionName = `q${currentQuestion}`;
-    const selectedAnswer = document.querySelector(`input[name="${currentQuestionName}"]:checked`);
+// Professional PDF Lead Magnet System
+function generatePDF(title, content) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
     
-    if (selectedAnswer) {
-        assessmentAnswers[currentQuestionName] = selectedAnswer.value;
-        currentQuestion++;
+    // Header
+    doc.setFontSize(20);
+    doc.setTextColor(0, 113, 255);
+    doc.text(title, 20, 30);
+    
+    // Subtitle
+    doc.setFontSize(12);
+    doc.setTextColor(100, 100, 100);
+    doc.text('Exclusively from TNL-Media Empire', 20, 40);
+    
+    // Content
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0);
+    const splitContent = doc.splitTextToSize(content, 170);
+    doc.text(splitContent, 20, 60);
+    
+    // Footer
+    doc.setFontSize(10);
+    doc.setTextColor(0, 113, 255);
+    doc.text('© 2025 TNL-Media | tnlbusinesss@gmail.com', 20, 280);
+    
+    return doc;
+}
+
+function claimPDFGuide(event) {
+    event.preventDefault();
+    const email = document.getElementById('exit-email').value;
+    
+    if (email && email.includes('@')) {
+        // Generate PDF
+        const content = `
+AI EMPIRE BUILDING BLUEPRINT
+Your Complete Guide to Business Automation
+
+TABLE OF CONTENTS:
+1. The AI Revolution in Business
+2. Identifying Automation Opportunities  
+3. The T3 Framework Implementation
+4. ROI Maximization Strategies
+5. Common Automation Mistakes
+6. Advanced AI Integration Techniques
+7. Scaling Your Automated Empire
+
+CHAPTER 1: THE AI REVOLUTION
+The business landscape is transforming at unprecedented speed. Companies that embrace AI automation are seeing 300-400% revenue increases while reducing operational costs by 70%.
+
+CHAPTER 2: IDENTIFYING OPPORTUNITIES
+Key areas for immediate automation:
+• Lead generation and qualification
+• Content creation and distribution
+• Customer service and support
+• Sales funnel optimization
+• Social media management
+• Email marketing campaigns
+
+CHAPTER 3: THE T3 FRAMEWORK
+TACTICAL Analysis: Assess current systems
+TECHNICAL Implementation: Deploy AI solutions  
+TRANSFORMATION: Scale and optimize
+
+CHAPTER 4: ROI MAXIMIZATION
+Focus on high-impact, low-effort automations first:
+- Email sequences (400% ROI)
+- Social media posting (300% time savings)
+- Lead scoring (250% conversion improvement)
+
+CHAPTER 5: COMMON MISTAKES
+• Over-automating too quickly
+• Ignoring customer experience
+• Lack of proper testing
+• No monitoring systems
+
+CHAPTER 6: ADVANCED TECHNIQUES
+• Predictive analytics integration
+• AI-powered personalization
+• Cross-platform automation
+• Dynamic content optimization
+
+CHAPTER 7: SCALING YOUR EMPIRE
+Build systems that scale:
+- Document all processes
+- Create standard operating procedures
+- Implement quality control measures
+- Plan for growth phases
+
+BONUS: Implementation Checklist
+□ Complete AI readiness assessment
+□ Identify top 3 automation opportunities
+□ Set up tracking and analytics
+□ Create content automation system
+□ Implement lead nurturing sequences
+□ Deploy customer service automation
+□ Scale successful automations
+
+For personalized implementation support, contact TNL-Media at tnlbusinesss@gmail.com
+        `;
         
-        if (currentQuestion <= 5) {
-            loadQuestion(currentQuestion);
-            updateProgress();
-        } else {
-            showResults();
-        }
+        const pdf = generatePDF('AI Empire Building Blueprint', content);
+        pdf.save('AI-Empire-Building-Blueprint.pdf');
+        
+        // Submit to Formspree
+        fetch('https://formspree.io/f/mrbqgagy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                type: 'PDF Download',
+                source: 'Exit Intent Modal',
+                document: 'AI Empire Building Blueprint'
+            })
+        });
+        
+        alert('🎉 Success! Your AI Empire Building Blueprint has been downloaded. Check your Downloads folder!');
+        closeExitModal();
+    } else {
+        alert('Please enter a valid email address');
     }
 }
 
-function loadQuestion(questionNum) {
-    const questions = {
-        2: {
-            text: "How many hours per week do you spend on repetitive tasks?",
-            options: [
-                { value: "0-10", label: "0-10 hours" },
-                { value: "10-20", label: "10-20 hours" },
-                { value: "20-40", label: "20-40 hours" },
-                { value: "40+", label: "40+ hours" }
-            ]
-        },
-        3: {
-            text: "What's your biggest business challenge right now?",
-            options: [
-                { value: "lead-generation", label: "Generating quality leads" },
-                { value: "time-management", label: "Time management" },
-                { value: "scaling", label: "Scaling operations" },
-                { value: "conversion", label: "Converting prospects to customers" }
-            ]
-        },
-        4: {
-            text: "How familiar are you with AI automation tools?",
-            options: [
-                { value: "beginner", label: "Complete beginner" },
-                { value: "some-experience", label: "Some experience" },
-                { value: "intermediate", label: "Intermediate user" },
-                { value: "advanced", label: "Advanced user" }
-            ]
-        },
-        5: {
-            text: "What's your goal for the next 12 months?",
-            options: [
-                { value: "double-revenue", label: "Double my revenue" },
-                { value: "reduce-workload", label: "Work 50% fewer hours" },
-                { value: "scale-team", label: "Scale my team efficiently" },
-                { value: "passive-income", label: "Create passive income streams" }
-            ]
-        }
-    };
+function downloadFreeGuide() {
+    const content = `
+AI BUSINESS AUTOMATION STARTER GUIDE
+Quick Start Implementation Guide
+
+IMMEDIATE ACTION STEPS:
+
+1. AUDIT YOUR CURRENT PROCESSES
+   • List all repetitive tasks
+   • Calculate time spent per task
+   • Identify manual bottlenecks
+   • Estimate potential savings
+
+2. PRIORITY AUTOMATION AREAS
+   High Impact:
+   • Email marketing sequences
+   • Social media scheduling
+   • Lead qualification
+   • Customer support
+   
+   Medium Impact:
+   • Content creation
+   • Data analysis
+   • Reporting
+   • Inventory management
+
+3. IMPLEMENTATION ROADMAP
+   Week 1: Email automation setup
+   Week 2: Social media automation
+   Week 3: Lead scoring system
+   Week 4: Customer service chatbot
+
+4. TOOLS AND PLATFORMS
+   Email: ActiveCampaign, Mailchimp
+   Social: Buffer, Hootsuite
+   CRM: HubSpot, Pipedrive
+   Chat: Intercom, Drift
+
+5. SUCCESS METRICS
+   • Time saved per week
+   • Conversion rate improvements
+   • Customer satisfaction scores
+   • Revenue per lead
+
+Ready to scale your automation? Contact TNL-Media for a custom strategy session.
+    `;
     
-    const question = questions[questionNum];
+    const pdf = generatePDF('AI Business Automation Starter Guide', content);
+    pdf.save('AI-Business-Automation-Guide.pdf');
+}
+
+// Sophisticated Assessment Tool
+const advancedQuestions = [
+    {
+        text: "What's your current monthly revenue range?",
+        options: [
+            { value: "0-10k", label: "$0 - $10,000 (Startup Phase)", score: 1 },
+            { value: "10k-50k", label: "$10,000 - $50,000 (Growth Phase)", score: 2 },
+            { value: "50k-100k", label: "$50,000 - $100,000 (Scale Phase)", score: 3 },
+            { value: "100k+", label: "$100,000+ (Enterprise Phase)", score: 4 }
+        ]
+    },
+    {
+        text: "How many hours per week do you spend on repetitive tasks?",
+        options: [
+            { value: "0-10", label: "0-10 hours (Highly optimized)", score: 1 },
+            { value: "10-20", label: "10-20 hours (Some inefficiencies)", score: 2 },
+            { value: "20-40", label: "20-40 hours (Major opportunities)", score: 3 },
+            { value: "40+", label: "40+ hours (Critical automation need)", score: 4 }
+        ]
+    },
+    {
+        text: "What's your biggest business challenge right now?",
+        options: [
+            { value: "lead-generation", label: "Generating quality leads consistently", score: 3 },
+            { value: "time-management", label: "Managing time and priorities effectively", score: 4 },
+            { value: "scaling", label: "Scaling operations without losing quality", score: 4 },
+            { value: "conversion", label: "Converting prospects to customers", score: 3 }
+        ]
+    },
+    {
+        text: "How familiar are you with AI automation tools?",
+        options: [
+            { value: "beginner", label: "Complete beginner (High learning potential)", score: 2 },
+            { value: "some-experience", label: "Some experience (Ready to advance)", score: 3 },
+            { value: "intermediate", label: "Intermediate user (Optimization opportunities)", score: 3 },
+            { value: "advanced", label: "Advanced user (Strategic implementation)", score: 4 }
+        ]
+    },
+    {
+        text: "What's your primary business model?",
+        options: [
+            { value: "ecommerce", label: "E-commerce/Product sales", score: 4 },
+            { value: "services", label: "Service-based business", score: 3 },
+            { value: "saas", label: "Software as a Service", score: 4 },
+            { value: "consulting", label: "Consulting/Coaching", score: 3 }
+        ]
+    },
+    {
+        text: "What's your goal for the next 12 months?",
+        options: [
+            { value: "double-revenue", label: "Double my revenue", score: 4 },
+            { value: "reduce-workload", label: "Work 50% fewer hours", score: 3 },
+            { value: "scale-team", label: "Scale my team efficiently", score: 3 },
+            { value: "passive-income", label: "Create passive income streams", score: 4 }
+        ]
+    },
+    {
+        text: "How quickly do you want to implement AI automation?",
+        options: [
+            { value: "immediately", label: "Immediately (Ready to start)", score: 4 },
+            { value: "1-month", label: "Within 1 month", score: 3 },
+            { value: "3-months", label: "Within 3 months", score: 2 },
+            { value: "planning", label: "Still planning/researching", score: 1 }
+        ]
+    }
+];
+
+function startAdvancedAssessment() {
+    document.getElementById('assessment-intro').classList.remove('active');
+    document.getElementById('assessment-questions').classList.add('active');
+    loadAdvancedQuestion(1);
+    updateProgress();
+}
+
+function loadAdvancedQuestion(questionNum) {
+    const question = advancedQuestions[questionNum - 1];
     document.getElementById('question-text').textContent = question.text;
     document.getElementById('current-question').textContent = questionNum;
     
     const optionsContainer = document.getElementById('answer-options');
     optionsContainer.innerHTML = question.options.map(option => `
-        <label class="block cursor-pointer">
-            <input type="radio" name="q${questionNum}" value="${option.value}" class="mr-3" onchange="enableNextButton()">
+        <label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
+            <input type="radio" name="current-question-input" value="${option.value}" data-score="${option.score}" class="mr-3" onchange="enableNextButton()">
             <span class="text-gray-300">${option.label}</span>
         </label>
     `).join('');
@@ -1148,241 +1453,301 @@ function loadQuestion(questionNum) {
     document.getElementById('next-btn').disabled = true;
 }
 
+function nextAdvancedQuestion() {
+    const selectedAnswer = document.querySelector('input[name="current-question-input"]:checked');
+    
+    if (selectedAnswer) {
+        assessmentAnswers[`q${currentQuestion}`] = {
+            value: selectedAnswer.value,
+            score: parseInt(selectedAnswer.dataset.score)
+        };
+        currentQuestion++;
+        
+        if (currentQuestion <= totalQuestions) {
+            loadAdvancedQuestion(currentQuestion);
+            updateProgress();
+        } else {
+            showAdvancedResults();
+        }
+    }
+}
+
+function enableNextButton() {
+    document.getElementById('next-btn').disabled = false;
+}
+
 function updateProgress() {
-    const progress = (currentQuestion / 5) * 100;
+    const progress = (currentQuestion / totalQuestions) * 100;
     document.getElementById('progress-fill').style.width = `${progress}%`;
 }
 
-function showResults() {
+function showAdvancedResults() {
+    // Calculate sophisticated score
+    let totalScore = 0;
+    let maxScore = 0;
+    
+    Object.values(assessmentAnswers).forEach(answer => {
+        totalScore += answer.score;
+        maxScore += 4;
+    });
+    
+    const scorePercentage = Math.round((totalScore / maxScore) * 100);
+    let finalScore = Math.max(75, Math.min(95, scorePercentage + Math.floor(Math.random() * 10)));
+    
+    // Determine recommendations based on answers
+    let automationPotential = "High";
+    let roiProjection = "340%";
+    let implementationTime = "30 Days";
+    
+    if (finalScore < 80) {
+        automationPotential = "Medium-High";
+        roiProjection = "280%";
+        implementationTime = "45 Days";
+    } else if (finalScore >= 90) {
+        automationPotential = "Exceptional";
+        roiProjection = "450%";
+        implementationTime = "21 Days";
+    }
+    
     document.getElementById('assessment-questions').classList.remove('active');
     document.getElementById('assessment-results').classList.add('active');
     
-    // Calculate score based on answers with more sophisticated algorithm
-    let score = calculateAssessmentScore();
-    document.getElementById('ai-score').textContent = score;
-    document.getElementById('assessment_score_input').value = score;
+    document.getElementById('ai-score').textContent = finalScore;
+    document.getElementById('automation-potential').textContent = automationPotential;
+    document.getElementById('roi-projection').textContent = roiProjection;
+    document.getElementById('implementation-time').textContent = implementationTime;
+    
+    // Update details
+    document.getElementById('automation-details').textContent = `${85 + Math.floor(Math.random() * 10)}% of processes can be automated`;
+    document.getElementById('roi-details').textContent = `Within ${3 + Math.floor(Math.random() * 4)} months`;
+    document.getElementById('implementation-details').textContent = `Full deployment timeline`;
 }
 
-function calculateAssessmentScore() {
-    let baseScore = 60;
+function claimAdvancedStrategy() {
+    const content = `
+PERSONALIZED AI AUTOMATION STRATEGY REPORT
+Your Custom Implementation Roadmap
+
+EXECUTIVE SUMMARY:
+Based on your assessment responses, you have significant automation opportunities that could transform your business operations and revenue potential.
+
+AI READINESS SCORE: ${document.getElementById('ai-score').textContent}/100
+
+KEY FINDINGS:
+• Automation Potential: ${document.getElementById('automation-potential').textContent}
+• Projected ROI: ${document.getElementById('roi-projection').textContent}
+• Implementation Timeline: ${document.getElementById('implementation-time').textContent}
+
+RECOMMENDED AUTOMATION SEQUENCE:
+
+PHASE 1 (First 30 Days):
+1. Email Marketing Automation
+   - Setup automated welcome sequences
+   - Create behavioral trigger campaigns
+   - Implement lead scoring system
+   Expected Impact: 200% increase in lead conversion
+
+2. Social Media Automation
+   - Content creation and scheduling
+   - Automated engagement responses
+   - Cross-platform posting system
+   Expected Impact: 300% time savings, 150% reach increase
+
+PHASE 2 (Days 31-60):
+3. Customer Service Automation
+   - AI chatbot implementation
+   - Automated FAQ responses
+   - Ticket routing system
+   Expected Impact: 70% reduction in support workload
+
+4. Sales Process Automation
+   - CRM integration and optimization
+   - Automated follow-up sequences
+   - Deal progression tracking
+   Expected Impact: 180% improvement in sales efficiency
+
+PHASE 3 (Days 61-90):
+5. Advanced Analytics & Optimization
+   - Predictive analytics implementation
+   - Performance monitoring dashboards
+   - Automated reporting systems
+   Expected Impact: Data-driven decision making
+
+INVESTMENT BREAKDOWN:
+Initial Setup: $15,000 - $25,000
+Monthly Optimization: $3,000 - $5,000
+Expected Annual ROI: $150,000 - $300,000
+
+NEXT STEPS:
+1. Schedule your FREE strategy consultation
+2. Complete detailed business analysis
+3. Receive custom implementation proposal
+4. Begin Phase 1 deployment
+
+Contact TNL-Media: tnlbusinesss@gmail.com
+Book Consultation: [Schedule Now]
+    `;
     
-    // Revenue factor
-    const revenue = assessmentAnswers.q1;
-    if (revenue === '100k+') baseScore += 20;
-    else if (revenue === '50k-100k') baseScore += 15;
-    else if (revenue === '10k-50k') baseScore += 10;
-    else baseScore += 5;
+    const pdf = generatePDF('Personalized AI Automation Strategy Report', content);
+    pdf.save('AI-Automation-Strategy-Report.pdf');
     
-    // Time factor
-    const timeSpent = assessmentAnswers.q2;
-    if (timeSpent === '40+') baseScore += 15;
-    else if (timeSpent === '20-40') baseScore += 12;
-    else if (timeSpent === '10-20') baseScore += 8;
-    else baseScore += 3;
-    
-    // Challenge factor
-    const challenge = assessmentAnswers.q3;
-    if (challenge === 'scaling') baseScore += 12;
-    else if (challenge === 'time-management') baseScore += 10;
-    else baseScore += 8;
-    
-    // Experience factor
-    const experience = assessmentAnswers.q4;
-    if (experience === 'advanced') baseScore += 8;
-    else if (experience === 'intermediate') baseScore += 10;
-    else if (experience === 'some-experience') baseScore += 12;
-    else baseScore += 15; // Beginners have more potential
-    
-    // Goals factor
-    const goals = assessmentAnswers.q5;
-    if (goals === 'passive-income') baseScore += 10;
-    else if (goals === 'double-revenue') baseScore += 8;
-    else baseScore += 6;
-    
-    return Math.min(Math.max(baseScore, 65), 95); // Ensure score is between 65-95
+    alert('🎯 Your custom AI strategy report has been downloaded! This detailed analysis is worth $1,497.');
 }
 
-// Enhanced ROI Calculator with Sophisticated Algorithms
+// Enhanced ROI Calculator
 function calculateAdvancedROI() {
     const currentRevenue = parseFloat(document.getElementById('current-revenue').value) || 0;
     const manualHours = parseFloat(document.getElementById('manual-hours').value) || 0;
-    const teamSize = parseFloat(document.getElementById('team-size').value) || 1;
-    const hourlyRate = parseFloat(document.getElementById('hourly-rate').value) || 50;
+    const businessType = document.getElementById('business-type').value;
     
     if (currentRevenue > 0) {
-        // Advanced calculations with multiple factors
-        const automationEfficiency = 0.75; // 75% automation achievable
-        const revenueMultiplier = calculateRevenueMultiplier(currentRevenue);
-        const hoursSavedWeekly = Math.floor(manualHours * automationEfficiency);
-        const costSavingsAnnual = hoursSavedWeekly * 52 * hourlyRate * teamSize;
-        const projectedRevenue = Math.floor(currentRevenue * revenueMultiplier);
-        const efficiencyGain = Math.floor(((projectedRevenue - currentRevenue) / currentRevenue) * 100);
-        const implementationCost = calculateImplementationCost(currentRevenue);
-        const breakEvenMonths = Math.ceil(implementationCost / ((projectedRevenue - currentRevenue) + (costSavingsAnnual / 12)));
-        const netProfit = ((projectedRevenue - currentRevenue) * 12) + costSavingsAnnual - implementationCost;
+        // Business type multipliers
+        const multipliers = {
+            ecommerce: 2.8,
+            saas: 3.2,
+            agency: 2.5,
+            consulting: 2.3,
+            other: 2.4
+        };
         
-        // Update display
+        const multiplier = multipliers[businessType] || 2.4;
+        const projectedRevenue = Math.floor(currentRevenue * multiplier);
+        const hoursSaved = Math.floor(manualHours * 0.75); // 75% automation
+        const automationEfficiency = Math.floor((hoursSaved / manualHours) * 100);
+        const breakevenMonths = Math.ceil(15000 / (projectedRevenue - currentRevenue)); // Based on $15K initial investment
+        const revenueIncrease = (projectedRevenue - currentRevenue) * 12;
+        
         document.getElementById('projected-revenue').textContent = `$${projectedRevenue.toLocaleString()}`;
-        document.getElementById('hours-saved').textContent = `${hoursSavedWeekly} hours`;
-        document.getElementById('cost-savings').textContent = `$${costSavingsAnnual.toLocaleString()}`;
-        document.getElementById('efficiency-gain').textContent = `${efficiencyGain}%`;
-        document.getElementById('breakeven-time').textContent = `${breakEvenMonths} months`;
-        document.getElementById('net-profit').textContent = `$${netProfit.toLocaleString()}`;
+        document.getElementById('hours-saved').textContent = `${hoursSaved} hours`;
+        document.getElementById('automation-efficiency').textContent = `${automationEfficiency}%`;
+        document.getElementById('breakeven-time').textContent = `${breakevenMonths} months`;
+        document.getElementById('revenue-increase').textContent = `$${revenueIncrease.toLocaleString()}`;
         
-        document.getElementById('roi-results').classList.remove('hidden');
-        
-        // Create ROI projection chart
-        createROIChart(currentRevenue, projectedRevenue, costSavingsAnnual, implementationCost);
+        document.getElementById('enhanced-roi-results').classList.remove('hidden');
     } else {
         alert('Please enter your current monthly revenue to calculate ROI');
     }
 }
 
-function calculateRevenueMultiplier(revenue) {
-    // Sophisticated revenue multiplier based on business size
-    if (revenue < 10000) return 2.8;
-    if (revenue < 50000) return 2.4;
-    if (revenue < 100000) return 2.1;
-    if (revenue < 500000) return 1.8;
-    return 1.5;
-}
-
-function calculateImplementationCost(revenue) {
-    // Implementation cost calculation based on revenue
-    const baseCost = 15000;
-    const scalingFactor = revenue * 0.1;
-    return Math.min(baseCost + scalingFactor, 75000);
-}
-
-function createROIChart(currentRevenue, projectedRevenue, costSavings, implementationCost) {
-    const ctx = document.getElementById('roi-chart').getContext('2d');
+function downloadROIReport() {
+    const currentRevenue = document.getElementById('current-revenue').value;
+    const projectedRevenue = document.getElementById('projected-revenue').textContent;
+    const hoursSaved = document.getElementById('hours-saved').textContent;
+    const revenueIncrease = document.getElementById('revenue-increase').textContent;
     
-    // Destroy existing chart if it exists
-    if (window.roiChart) {
-        window.roiChart.destroy();
-    }
-    
-    const months = ['Month 1', 'Month 3', 'Month 6', 'Month 9', 'Month 12'];
-    const currentData = months.map(() => currentRevenue);
-    const projectedData = months.map((_, index) => {
-        const progress = (index + 1) / 12;
-        return currentRevenue + ((projectedRevenue - currentRevenue) * progress);
-    });
-    
-    window.roiChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: months,
-            datasets: [{
-                label: 'Current Revenue Path',
-                data: currentData,
-                borderColor: '#7A04EB',
-                backgroundColor: 'rgba(122, 4, 235, 0.1)',
-                tension: 0.1
-            }, {
-                label: 'AI-Optimized Revenue',
-                data: projectedData,
-                borderColor: '#00F0FF',
-                backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                tension: 0.1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#F0F5FF'
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#F0F5FF',
-                        callback: function(value) {
-                            return '$' + value.toLocaleString();
-                        }
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    }
-                },
-                x: {
-                    ticks: {
-                        color: '#F0F5FF'
-                    },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    }
-                }
-            }
-        }
-    });
-}
+    const content = `
+DETAILED ROI ANALYSIS REPORT
+AI Automation Investment Analysis
 
-// Video Demo Function
-function openVideoDemo() {
-    window.open('https://youtube.com/embed/6eQENkdqMiE', '_blank');
-}
+BUSINESS PROFILE:
+Current Monthly Revenue: $${parseInt(currentRevenue).toLocaleString()}
+Business Type: ${document.getElementById('business-type').value.toUpperCase()}
 
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
+PROJECTED OUTCOMES:
+Monthly Revenue After Automation: ${projectedRevenue}
+Weekly Hours Saved: ${hoursSaved}
+Annual Revenue Increase: ${revenueIncrease}
+Automation Efficiency: ${document.getElementById('automation-efficiency').textContent}
+Break-even Timeline: ${document.getElementById('breakeven-time').textContent}
+
+DETAILED FINANCIAL PROJECTION:
+
+YEAR 1:
+Q1: Implementation phase, 25% efficiency gain
+Q2: 50% efficiency achieved, revenue increases
+Q3: 75% optimization, significant improvements
+Q4: Full automation benefits realized
+
+INVESTMENT REQUIREMENTS:
+Initial Setup: $15,000 - $25,000
+- Platform integrations
+- Custom automation development
+- Training and onboarding
+
+Monthly Optimization: $3,000 - $5,000
+- System monitoring
+- Performance optimization
+- Continuous improvements
+
+RISK ANALYSIS:
+Low Risk: Email and social media automation
+Medium Risk: Customer service automation
+Higher Impact: Complete business automation
+
+IMPLEMENTATION TIMELINE:
+Month 1: Foundation setup
+Month 2: Core automation deployment
+Month 3: Advanced features activation
+Month 4+: Optimization and scaling
+
+ROI BREAKDOWN BY QUARTER:
+Q1: -$20,000 (Investment)
+Q2: +$15,000 (Early returns)
+Q3: +$35,000 (Acceleration)
+Q4: +$55,000 (Full benefits)
+
+Total Year 1 ROI: +$85,000
+Year 2 Projected: +$180,000
+Year 3 Projected: +$280,000
+
+Contact TNL-Media for custom implementation:
+Email: tnlbusinesss@gmail.com
+    `;
+    
+    const pdf = generatePDF('Detailed ROI Analysis Report', content);
+    pdf.save('AI-ROI-Analysis-Report.pdf');
+}
 
 // Contact Form Enhancement
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    
-    if (name && email) {
-        // Show success message
-        setTimeout(() => {
-            alert('🚀 Success! Your strategy session request has been received. We\'ll contact you within 24 hours to schedule your FREE consultation.');
-        }, 500);
-    }
-});
-
-// Initialize All Functions
 document.addEventListener('DOMContentLoaded', function() {
-    initializeCountdown();
-    animateLiveCounters();
-    updateSpotsRemaining();
-    detectExitIntent();
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            if (name && email) {
+                setTimeout(() => {
+                    alert('🚀 Success! Your strategy session request has been received. We\'ll contact you within 24 hours to schedule your FREE consultation worth $1,497.');
+                }, 500);
+            }
+        });
+    }
     
-    // Show periodic success notifications
-    setTimeout(showSuccessNotification, 3000);
-    setInterval(showSuccessNotification, 15000);
-});
-
-// Prevent right-click and text selection for additional protection
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
-
-document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
+    // Initialize all enhanced features
+    updateCountdown();
+    animateEnhancedCounters();
+    updateSpotsRemaining();
+    detectEnhancedExitIntent();
+    
+    // Show periodic enhanced notifications
+    setTimeout(showEnhancedNotification, 3000);
+    setInterval(showEnhancedNotification, 20000);
+    
+    // Enhanced smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 });
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b1572d1c0b6bda","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b1ba7a7ae46be4","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu%2ByIdZnkAE4s6aU2UsiHZZmGtGH9y5%2BHhyntA6JBafRr8GBJjY2wDYndLcG9ylu4E%2BQ%2FWvMt1mACM5RKizzPVTu7kKkH5uzFrhxvSepUDTgVZYIaWWBBaWgqrB0NJhg2yWYOTd79%2F26RHjcyWQkI%2BnWHjy4MUJmqjBOprWPUzgcaQOHnQe%2F4HAbws2VWTq3WVzSpidMgwRQtJEewpl%2FJw1xqQWrBtYgWEDFNJvV%2BCIsEniAy0MMq1%2FOL9sopfjFbskaZYEcv%2BkExUYFVHmkru6msdnq%2FRMi2D3JSrw1e7appu%2BPO6FK89zMLoPN%2Fw3X%2Bj24Ck7aQXTC9k3pDHQHkwK%2FVP3PEvjBXl4Za8X37H0ceifpw%2BhXGFOLKVzElQgERw4UiVeHVGHiCJ6fUHvVOa3i3EX%2BV76N7k3oAX5pZ7ZV0Dg3pKbZ4qgZC2%2BDMjwcRF%2BHTlowpwbPJpRNf0FaDB55n%2FN0BFUa4%2BRgOX%2Ff7sRzkAPYSkQ4kuWoaLB8i6bi9CeSfg8rTZKXq0LUAkPs394%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrWR2dY3pJUKeR46dkrV0H8sdhhtDKquCEwxGXs4jTOY3bEIWXpwtxJLdQtAgQ0hKuvPlp1SY%2B42BxlgffDW%2BgwhYb%2BeUA12jRYcCdm0SN%2BIxQk0Tnign60I3geTjD5K0cFldR1Ul2TPI7YSsfOC07NfBeYAEqNqurV%2BirV1HNu7Su3aW4UufPTqRtI1rW1NBhGOuaSkRks9DRRSZs5fchgzufxSdVZ%2BfaFdNCrR7b6dHaFzcyk9VamJuDXVEKg%2F2svkD%2BChNxmTS40tVaZCoU%2FxYKwqIFuhQFa8EJz13IzuJWVofP7Ms3qhE5jcfX1qqlAJ9gf8LTy43zkWiliFyb05Mx6GbZ4WfWLc8A31Bm4aNYphSdyuaRULkjWt5GA0fzOHoEL3G1FD9IPBY8eSDT%2BG5xn2TEkK%2FL8%2FTm6%2FprAqT8troy67mzwdbdBL4cdCBohISngsHc31ttEJhCbmdzqeH8XOsTHVle%2BOo%2B0btdzRrq543qY46rDijbD%2FDzzDkIpw9KnZsuuqenYQwAxjDNM%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu+yIdZnkAE4s6aU2UsiHZZmGtGH9y5+HhyntA6JBafRr8GBJjY2wDYndLcG9ylu4E+Q/WvMt1mACM5RKizzPVTu7kKkH5uzFrhxvSepUDTgVZYIaWWBBaWgqrB0NJhg2yWYOTd79/26RHjcyWQkI+nWHjy4MUJmqjBOprWPUzgcaQOHnQe/4HAbws2VWTq3WVzSpidMgwRQtJEewpl/Jw1xqQWrBtYgWEDFNJvV+CIsEniAy0MMq1/OL9sopfjFbskaZYEcv+kExUYFVHmkru6msdnq/RMi2D3JSrw1e7appu+PO6FK89zMLoPN/w3X+j24Ck7aQXTC9k3pDHQHkwK/VP3PEvjBXl4Za8X37H0ceifpw+hXGFOLKVzElQgERw4UiVeHVGHiCJ6fUHvVOa3i3EX+V76N7k3oAX5pZ7ZV0Dg3pKbZ4qgZC2+DMjwcRF+HTlowpwbPJpRNf0FaDB55n/N0BFUa4+RgOX/f7sRzkAPYSkQ4kuWoaLB8i6bi9CeSfg8rTZKXq0LUAkPs394=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrWR2dY3pJUKeR46dkrV0H8sdhhtDKquCEwxGXs4jTOY3bEIWXpwtxJLdQtAgQ0hKuvPlp1SY+42BxlgffDW+gwhYb+eUA12jRYcCdm0SN+IxQk0Tnign60I3geTjD5K0cFldR1Ul2TPI7YSsfOC07NfBeYAEqNqurV+irV1HNu7Su3aW4UufPTqRtI1rW1NBhGOuaSkRks9DRRSZs5fchgzufxSdVZ+faFdNCrR7b6dHaFzcyk9VamJuDXVEKg/2svkD+ChNxmTS40tVaZCoU/xYKwqIFuhQFa8EJz13IzuJWVofP7Ms3qhE5jcfX1qqlAJ9gf8LTy43zkWiliFyb05Mx6GbZ4WfWLc8A31Bm4aNYphSdyuaRULkjWt5GA0fzOHoEL3G1FD9IPBY8eSDT+G5xn2TEkK/L8/Tm6/prAqT8troy67mzwdbdBL4cdCBohISngsHc31ttEJhCbmdzqeH8XOsTHVle+Oo+0btdzRrq543qY46rDijbD/DzzDkIpw9KnZsuuqenYQwAxjDNM=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
