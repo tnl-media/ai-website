@@ -249,7 +249,7 @@
                 <div class="mb-4">
                     <input type="email" name="email" placeholder="Enter your email for instant access" class="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="exit-email" required>
                 </div>
-                <button class="btn-primary w-full mb-3" type="submit">
+                <button type="submit" class="btn-primary w-full mb-3">
                     <i class="fas fa-gift mr-2"></i>Claim FREE Assessment
                 </button>
             </form>
@@ -492,9 +492,9 @@
 </div>
 <p class="text-gray-400 mb-6">Based on your responses, you're an excellent candidate for AI automation. Get your detailed strategy report below.</p>
 <form action="https://formspree.io/f/mrbqgagy" method="POST">
-<input type="hidden" name="form_type" value="ai_assessment_strategy">
-<input type="hidden" name="ai_score" id="strategy-score" value="87">
-<button class="btn-primary" type="submit">
+<input type="hidden" name="assessment_score" value="87">
+<input type="hidden" name="form_type" value="AI Assessment Results">
+<button type="submit" class="btn-primary">
 <i class="fas fa-download mr-2"></i>Get My Custom Strategy Report
 </button>
 </form>
@@ -778,9 +778,9 @@ MOST POPULAR
 <div class="mb-8">
 <h3 class="text-2xl font-bold mb-4">Connect With the AI Empire Builder</h3>
 <div class="flex flex-col space-y-4">
-<a class="flex items-center text-gray-300 hover:text-white transition" href="/cdn-cgi/l/email-protection#15767a7b6174766155617b797870717c743b767a78">
+<a class="flex items-center text-gray-300 hover:text-white transition" href="/cdn-cgi/l/email-protection#0a7e6466687f7963646f7979794a6d676b636624696567">
 <i class="fas fa-envelope text-blue-400 mr-4 w-6"></i>
-<span><span class="__cf_email__" data-cfemail="6d0e0203190c0e192d190301000809040c430e0200">[email&#160;protected]</span></span>
+<span><span class="__cf_email__" data-cfemail="73071d1f1106001a1d1600000033141e121a1f5d101c1e">[email&#160;protected]</span></span>
 </a>
 <a class="flex items-center text-gray-300 hover:text-white transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-blue-400 mr-4 w-6"></i>
@@ -803,12 +803,12 @@ MOST POPULAR
 </a>
 <a class="neo-card p-4 text-center hover:glow transition" href="https://crazycryptobudz.carrd.co/" target="_blank">
 <i class="fas fa-coins text-2xl mb-2 text-blue-400"></i>
-<p class="font-bold">Crypto AI</p>
+<p class="font-bold">Crazy Crypto Budz</p>
 <p class="text-xs text-gray-400">Trading Bots</p>
 </a>
 <a class="neo-card p-4 text-center hover:glow transition" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-2xl mb-2 text-blue-400"></i>
-<p class="font-bold">AI Academy</p>
+<p class="font-bold">T3 is Key Channel</p>
 <p class="text-xs text-gray-400">Free Training</p>
 </a>
 <a class="neo-card p-4 text-center hover:glow transition" href="https://africanhomesforsale.com/" target="_blank">
@@ -1054,9 +1054,6 @@ function nextQuestion() {
         } else {
             showResults();
         }
-        
-        // Reset next button for new question
-        document.getElementById('next-btn').disabled = true;
     }
 }
 
@@ -1111,6 +1108,8 @@ function loadQuestion(questionNum) {
             <span class="text-gray-300">${option.label}</span>
         </label>
     `).join('');
+    
+    document.getElementById('next-btn').disabled = true;
 }
 
 function enableNextButton() {
@@ -1129,7 +1128,6 @@ function showResults() {
     // Calculate score based on answers
     let score = Math.floor(Math.random() * 15) + 75; // 75-90 range
     document.getElementById('ai-score').textContent = score;
-    document.getElementById('strategy-score').value = score;
 }
 
 // ROI Calculator
@@ -1198,14 +1196,15 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(showSuccessNotification, 15000);
 });
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b12044aad8f0bd","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b13723bf9c6725","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqZ9lzedhtus64bpZoScZXaqxH4ozp3%2FaFn0VmOJR74rjPu30tu1gvYp0By2Y6GYoK%2FJW2ph%2B8m1H%2FXtcJ%2Ff8XLZyOi%2BozDfdFPqz1G6k8p9Tfahx4IdiJEHbIv0SW3z0QLSwv5Qo6juaBkL0cFc%2FzJsnGA%2BDsaOmZ4ECjLklheDlnO1wEW19F6wEFvCtKh3ufsVGhn4TJdjjXYFwHyGJqKnVQt3wSIHntEOj9E9nzgNZ3qahG4TvHiQZpMmIozzO8vCW8EHU9Vdx%2FHIyyVGFMi4lloyqAivQDXa%2Bi2ZH%2FKY%2FQH%2FDInv1I%2FC4HvfjESl2dau%2FOTQHD3Kln2DpfswodG%2BqDFPwan%2B%2FjC6vwl57XYvwLPzPvls9ukda4VXfcb9pYDTnHCT4zVQezhP9r296oCQy%2F4ryTfcmfKAtcmynCDuT9DsLAXplXr6RUP%2BiVom5JaoLInxlF79SxeG%2FQpJH9CcjKKHRCfnqhRjKCjI5xFUXXF%2F%2FKvzK6ce4pFIvl9aRBx%2BFfmZpUwfgUZeuXZTC8o%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqaVSVHuP0zMGccDvosfOeGgWQ19K0cYQH%2BYWYHH4sp%2BQ9LnAET6Xes04H76gx%2BPLWpt2bjPZq17x2LCXeKjU1dj%2BIYt%2F4DZdN6Tpl0fWeABxjmNOj5Q7vc7ksGeAZDP7R8YCySRXofR1fVxDgkc8pJE4FRUkcTpowak4l9Ro9OWRE%2FLBOShLtGTMGoG3vw5DyuuKWVfKGVj%2FIWfjzfGRGgQVv2TRkG%2B9LkYWwXzwK5t3JvZL5EE6%2FQUNwNgl7qb%2BtWWZUQ60YkcixL0Gyh5rgjv7%2F%2FcKmSzgdk3rBcOpGjeVgZVCD9VVm4upQBH7m1ImZPAHzts0bvwcYSofD9jp2tF4FXQCyNn1vRJGyiWZcaxM47lJ21zVey4kzvybL2nwHPMHDei3cDM0xKQDlcgQYy5chegGuzOHx4I2mea6IH3vETKDpLVIiaQsoa%2BjCYxx8NIwRdKUcS5fz%2Fq5mJreZZQ5OQyKDN607cgVSXNBjH%2F4Imften3QSUoci8eS6mBFKshc%2BjtTiskzX9aBR9knN4%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqZ9lzedhtus64bpZoScZXaqxH4ozp3/aFn0VmOJR74rjPu30tu1gvYp0By2Y6GYoK/JW2ph+8m1H/XtcJ/f8XLZyOi+ozDfdFPqz1G6k8p9Tfahx4IdiJEHbIv0SW3z0QLSwv5Qo6juaBkL0cFc/zJsnGA+DsaOmZ4ECjLklheDlnO1wEW19F6wEFvCtKh3ufsVGhn4TJdjjXYFwHyGJqKnVQt3wSIHntEOj9E9nzgNZ3qahG4TvHiQZpMmIozzO8vCW8EHU9Vdx/HIyyVGFMi4lloyqAivQDXa+i2ZH/KY/QH/DInv1I/C4HvfjESl2dau/OTQHD3Kln2DpfswodG+qDFPwan+/jC6vwl57XYvwLPzPvls9ukda4VXfcb9pYDTnHCT4zVQezhP9r296oCQy/4ryTfcmfKAtcmynCDuT9DsLAXplXr6RUP+iVom5JaoLInxlF79SxeG/QpJH9CcjKKHRCfnqhRjKCjI5xFUXXF//KvzK6ce4pFIvl9aRBx+FfmZpUwfgUZeuXZTC8o=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqaVSVHuP0zMGccDvosfOeGgWQ19K0cYQH+YWYHH4sp+Q9LnAET6Xes04H76gx+PLWpt2bjPZq17x2LCXeKjU1dj+IYt/4DZdN6Tpl0fWeABxjmNOj5Q7vc7ksGeAZDP7R8YCySRXofR1fVxDgkc8pJE4FRUkcTpowak4l9Ro9OWRE/LBOShLtGTMGoG3vw5DyuuKWVfKGVj/IWfjzfGRGgQVv2TRkG+9LkYWwXzwK5t3JvZL5EE6/QUNwNgl7qb+tWWZUQ60YkcixL0Gyh5rgjv7//cKmSzgdk3rBcOpGjeVgZVCD9VVm4upQBH7m1ImZPAHzts0bvwcYSofD9jp2tF4FXQCyNn1vRJGyiWZcaxM47lJ21zVey4kzvybL2nwHPMHDei3cDM0xKQDlcgQYy5chegGuzOHx4I2mea6IH3vETKDpLVIiaQsoa+jCYxx8NIwRdKUcS5fz/q5mJreZZQ5OQyKDN607cgVSXNBjH/4Imften3QSUoci8eS6mBFKshc+jtTiskzX9aBR9knN4=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
