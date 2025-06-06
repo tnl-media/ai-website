@@ -238,38 +238,100 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(0, 240, 255, 0.5);
         }
-        .spline-container {
-            width: 100%;
-            height: 360px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-        .spline-container spline-viewer {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: transparent;
-        }
-        #logo, a[href*="spline.design"] {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
+        
+        /* COMPREHENSIVE SPLINE ATTRIBUTION REMOVAL */
+        #logo, 
+        a[href*="spline.design"],
         [href*="utm_source=spline-viewer"], 
         [href*="utm_campaign=spline-logo"],
-        [href*="spline.design"] {
+        [href*="spline.design"],
+        spline-viewer a,
+        spline-viewer button,
+        spline-viewer div[class*="logo"],
+        spline-viewer div[class*="watermark"],
+        spline-viewer div[class*="attribution"],
+        spline-viewer div[class*="brand"],
+        spline-viewer span[class*="logo"],
+        spline-viewer span[class*="watermark"],
+        spline-viewer span[class*="attribution"],
+        spline-viewer span[class*="brand"],
+        spline-viewer [data-testid*="logo"],
+        spline-viewer [data-testid*="watermark"],
+        spline-viewer [data-testid*="attribution"],
+        spline-viewer [data-qa*="logo"],
+        spline-viewer [data-qa*="watermark"],
+        spline-viewer [data-qa*="attribution"],
+        spline-viewer [class*="spline-watermark"],
+        spline-viewer [class*="spline-logo"],
+        spline-viewer [class*="spline-brand"],
+        spline-viewer [id*="spline-logo"],
+        spline-viewer [id*="spline-watermark"],
+        spline-viewer [id*="watermark"],
+        spline-viewer [id*="logo"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            left: -9999px !important;
+            top: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+            z-index: -1 !important;
+        }
+
+        /* Additional comprehensive selectors for dynamically added elements */
+        spline-viewer * {
+            pointer-events: auto;
+        }
+        
+        spline-viewer a *,
+        spline-viewer button *,
+        spline-viewer [href*="spline"] *,
+        spline-viewer [onclick*="spline"] *,
+        spline-viewer [data-url*="spline"] * {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
         }
-        spline-viewer::part(logo) {
+
+        /* Target any text content that might say "Built with Spline" */
+        spline-viewer *:contains("Built with Spline"),
+        spline-viewer *:contains("built with spline"),
+        spline-viewer *:contains("Spline"),
+        spline-viewer *:contains("spline.design") {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
         }
-        spline-viewer::part(attribution) {
+
+        /* Override any inline styles that might show attribution */
+        spline-viewer [style*="display: block"] a,
+        spline-viewer [style*="display: inline"] a,
+        spline-viewer [style*="display: flex"] a,
+        spline-viewer [style*="opacity: 1"] a,
+        spline-viewer [style*="visibility: visible"] a {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+        /* Clean up any remaining elements */
+        spline-viewer::after,
+        spline-viewer::before {
+            content: none !important;
+        }
+
+        /* Ensure the 3D content shows properly without attribution */
+        spline-viewer canvas,
+        spline-viewer webgl-canvas,
+        spline-viewer [data-engine] {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
 </style>
 </head>
@@ -538,19 +600,19 @@
 <h3 class="text-xl font-bold mb-6" id="question-text">What's your current monthly revenue range?</h3>
 <div class="space-y-3" id="answer-options">
 <label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
-<input type="radio" name="current-question-input" value="0-10k" class="mr-3">
+<input type="radio" name="current-question-input" value="0-10k" data-score="1" class="mr-3">
 <span class="text-gray-300">$0 - $10,000 (Startup Phase)</span>
 </label>
 <label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
-<input type="radio" name="current-question-input" value="10k-50k" class="mr-3">
+<input type="radio" name="current-question-input" value="10k-50k" data-score="2" class="mr-3">
 <span class="text-gray-300">$10,000 - $50,000 (Growth Phase)</span>
 </label>
 <label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
-<input type="radio" name="current-question-input" value="50k-100k" class="mr-3">
+<input type="radio" name="current-question-input" value="50k-100k" data-score="3" class="mr-3">
 <span class="text-gray-300">$50,000 - $100,000 (Scale Phase)</span>
 </label>
 <label class="block cursor-pointer p-3 rounded border border-gray-600 hover:border-blue-500 transition">
-<input type="radio" name="current-question-input" value="100k+" class="mr-3">
+<input type="radio" name="current-question-input" value="100k+" data-score="4" class="mr-3">
 <span class="text-gray-300">$100,000+ (Enterprise Phase)</span>
 </label>
 </div>
@@ -608,9 +670,9 @@
 </div>
 </div>
 
-<!-- Second 3D Element Showcase -->
+<!-- Enhanced Second 3D Showcase replacing AI Dashboard -->
 <div class="mb-16" data-aos="zoom-in">
-<div class="neo-card enhanced-hover p-4 relative overflow-hidden mx-auto" style="max-width: 800px; height: 400px;">
+<div class="neo-card enhanced-hover p-4 relative overflow-hidden mx-auto max-w-5xl">
 <spline-viewer url="https://prod.spline.design/38saRkoXscd7d3dR/scene.splinecode"></spline-viewer>
 </div>
 </div>
@@ -867,6 +929,7 @@ MOST POPULAR
 </div>
 </div>
 </div>
+</div>
 </section>
 
 <!-- Enhanced Contact Section -->
@@ -891,9 +954,9 @@ MOST POPULAR
 <div class="mb-8">
 <h3 class="text-2xl font-bold mb-4">Connect With the AI Empire Builder</h3>
 <div class="flex flex-col space-y-4">
-<a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="/cdn-cgi/l/email-protection#c9bda7a5abbcbaa0a7acbababa89aea4a8a0a5e7aaa6a4">
+<a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="/cdn-cgi/l/email-protection#a5d1cbc9c7d0d6cccbc0d6d6d6e5c2c8c4ccc98bc6cac8">
 <i class="fas fa-envelope text-blue-400 mr-4 w-6"></i>
-<span><span class="__cf_email__" data-cfemail="2a5e4446485f5943444f5959596a4d474b434604494547">[email&#160;protected]</span></span>
+<span><span class="__cf_email__" data-cfemail="9de9f3f1ffe8eef4f3f8eeeeeeddfaf0fcf4f1b3fef2f0">[email&#160;protected]</span></span>
 </a>
 <a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-blue-400 mr-4 w-6"></i>
@@ -1760,14 +1823,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b6dd82ea9ff0a2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b6f56b1b59f0a2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlcpYV4kahkYtBZjgWFX2P8NS82xI4HJjjBjoj6JLBGEXZS6NrYy6otvCCqQkX6L75DXeEq31x685BoLttnYWQY8UZFPU1hl9Iv7MLHf%2F8XLhsYb5WLYjwaikUzXWT3QF8D5SlUkiHcv34Znl1IOG%2Fc0d32Rw48xBoo0uoKpNER1c2bdcYfqNPS6CbEtO8Ftb3XAP95bRNqHF9oBMMtIrFqEYKnAcfkbSSEaD0CTsLHBaTeZQ44yQ1690v8M7xM0LHMtVCYwbv%2BJR41u1HmhV%2BG4RToGcW%2F%2FPgjRM12H8yebUhP5aDxOvfTcEgDKe10Z3Iya7C9HHF2BeNBtgIsUYSAK1vg%2F28sg4NVQhv1xOaObh7fp4L1c3cCAsVZku3rpsczQ78m9Ouk7f0gSQWoA6%2F26gFXXarEMyOUyyw34s5QKS8z6kgKbVUvMFu8RTTuk4OWT9Lu%2BBIbj8mb3cJ5WfVDULelnKdNoLrUKVSFk2vl94qiSEHF6ZevV6C6daaiqMY2BYWVg4EJiwnsJMrXtNwU%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqydkGrDQzimDyNOeu6QqShUAMEXkJETiI8ID%2BJ4PBL3NwoJ3pGslkeOkd9Pg4LfmjgKkkjR%2B32zWq6508mAgIQq9Cp7rd%2FKGFrXv6AqcNAezbmSkvaKBb9ViXVVUI6MMCT6R8OC1wNxz%2B1XznuFmN91jWpg5J8kGdT2Zd%2BM4bHLq16G4aVuIadwVXus2X0UQIyas9swm1jdVQitWoRk23PlSwNuL8EaqsQ%2Bn5bDDTlFF%2Fl0ZMs6I4ZZwLqdmtdtoxlj2BaQVujev%2F%2BWwrjDj98kHFy00bPZkGvStq9ai6UAWfFAdBTOJXw805PPCwuDiFCqsialg3uWCGY3KRh1porn%2FwlYoWZv5d3k0MsXOMwFmzWh4E9drZPTtZK08zYLGDXV9abnzT4w5TbbbPTjI0QtHRmAhVuWU5wExU%2Bf9R5wbqPbO%2FpGkjbtTnsO%2Br7gBBXFm4B11mRHSwuSbwHG%2FPFXDPNcHFzVVhZJkp%2FzE7WTEZg%2B8kp%2F2%2BsrxsaBQNYpB869Qo8OdNC1%2FDvY3MJ6tnY%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlcpYV4kahkYtBZjgWFX2P8NS82xI4HJjjBjoj6JLBGEXZS6NrYy6otvCCqQkX6L75DXeEq31x685BoLttnYWQY8UZFPU1hl9Iv7MLHf/8XLhsYb5WLYjwaikUzXWT3QF8D5SlUkiHcv34Znl1IOG/c0d32Rw48xBoo0uoKpNER1c2bdcYfqNPS6CbEtO8Ftb3XAP95bRNqHF9oBMMtIrFqEYKnAcfkbSSEaD0CTsLHBaTeZQ44yQ1690v8M7xM0LHMtVCYwbv+JR41u1HmhV+G4RToGcW//PgjRM12H8yebUhP5aDxOvfTcEgDKe10Z3Iya7C9HHF2BeNBtgIsUYSAK1vg/28sg4NVQhv1xOaObh7fp4L1c3cCAsVZku3rpsczQ78m9Ouk7f0gSQWoA6/26gFXXarEMyOUyyw34s5QKS8z6kgKbVUvMFu8RTTuk4OWT9Lu+BIbj8mb3cJ5WfVDULelnKdNoLrUKVSFk2vl94qiSEHF6ZevV6C6daaiqMY2BYWVg4EJiwnsJMrXtNwU=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqydkGrDQzimDyNOeu6QqShUAMEXkJETiI8ID+J4PBL3NwoJ3pGslkeOkd9Pg4LfmjgKkkjR+32zWq6508mAgIQq9Cp7rd/KGFrXv6AqcNAezbmSkvaKBb9ViXVVUI6MMCT6R8OC1wNxz+1XznuFmN91jWpg5J8kGdT2Zd+M4bHLq16G4aVuIadwVXus2X0UQIyas9swm1jdVQitWoRk23PlSwNuL8EaqsQ+n5bDDTlFF/l0ZMs6I4ZZwLqdmtdtoxlj2BaQVujev/+WwrjDj98kHFy00bPZkGvStq9ai6UAWfFAdBTOJXw805PPCwuDiFCqsialg3uWCGY3KRh1porn/wlYoWZv5d3k0MsXOMwFmzWh4E9drZPTtZK08zYLGDXV9abnzT4w5TbbbPTjI0QtHRmAhVuWU5wExU+f9R5wbqPbO/pGkjbtTnsO+r7gBBXFm4B11mRHSwuSbwHG/PFXDPNcHFzVVhZJkp/zE7WTEZg+8kp/2+srxsaBQNYpB869Qo8OdNC1/DvY3MJ6tnY=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
