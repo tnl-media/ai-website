@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <link href="https://cdn1.genspark.ai/user-upload-image/4_generated/cb8f58ee-7843-4745-a9b0-d66aa54a4f34_wm" rel="icon" type="image/png"/>
-<script src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js" type="module"></script>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.2/build/spline-viewer.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
@@ -238,6 +238,19 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(0, 240, 255, 0.5);
         }
+        .spline-container {
+            width: 100%;
+            height: 360px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .spline-container spline-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+        }
         #logo, a[href*="spline.design"] {
             display: none !important;
             visibility: hidden !important;
@@ -251,6 +264,12 @@
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
+        }
+        spline-viewer::part(logo) {
+            display: none !important;
+        }
+        spline-viewer::part(attribution) {
+            display: none !important;
         }
 </style>
 </head>
@@ -376,8 +395,8 @@
 <div class="relative">
 <div class="w-80 h-80 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 blur-3xl absolute -top-10 -left-10"></div>
 <div class="w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 blur-3xl absolute -bottom-10 -right-10"></div>
-<div class="neo-card enhanced-hover p-4 relative overflow-hidden" style="width: 320px; height: 256px;">
-<spline-viewer data-powered-by="AI" url="https://prod.spline.design/ywuzTN6k-afgATHV/scene.splinecode"></spline-viewer>
+<div class="neo-card enhanced-hover p-4 relative overflow-hidden" style="width: 480px; height: 360px;">
+<spline-viewer url="https://prod.spline.design/M9HPfyIA02tbsC4B/scene.splinecode"></spline-viewer>
 </div>
 </div>
 </div>
@@ -589,9 +608,11 @@
 </div>
 </div>
 
-<!-- Enhanced AI Dashboard Showcase -->
+<!-- Second 3D Element Showcase -->
 <div class="mb-16" data-aos="zoom-in">
-<img src="https://cdn1.genspark.ai/user-upload-image/4_generated/6044d899-c60e-4366-98ca-792dcbc89ab2_wm" alt="AI Automation Dashboard" class="w-full max-w-5xl mx-auto rounded-lg shadow-2xl enhanced-hover">
+<div class="neo-card enhanced-hover p-4 relative overflow-hidden mx-auto" style="max-width: 800px; height: 400px;">
+<spline-viewer url="https://prod.spline.design/38saRkoXscd7d3dR/scene.splinecode"></spline-viewer>
+</div>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -846,7 +867,6 @@ MOST POPULAR
 </div>
 </div>
 </div>
-</div>
 </section>
 
 <!-- Enhanced Contact Section -->
@@ -871,9 +891,9 @@ MOST POPULAR
 <div class="mb-8">
 <h3 class="text-2xl font-bold mb-4">Connect With the AI Empire Builder</h3>
 <div class="flex flex-col space-y-4">
-<a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="/cdn-cgi/l/email-protection#4c3822202e393f2522293f3f3f0c2b212d2520622f2321">
+<a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="/cdn-cgi/l/email-protection#c9bda7a5abbcbaa0a7acbababa89aea4a8a0a5e7aaa6a4">
 <i class="fas fa-envelope text-blue-400 mr-4 w-6"></i>
-<span><span class="__cf_email__" data-cfemail="31455f5d534442585f5442424271565c50585d1f525e5c">[email&#160;protected]</span></span>
+<span><span class="__cf_email__" data-cfemail="2a5e4446485f5943444f5959596a4d474b434604494547">[email&#160;protected]</span></span>
 </a>
 <a class="flex items-center text-gray-300 hover:text-white transition enhanced-hover" href="https://www.youtube.com/@T3isKey/featured" target="_blank">
 <i class="fab fa-youtube text-blue-400 mr-4 w-6"></i>
@@ -1740,14 +1760,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b1ba7a7ae46be4","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"94b6dd82ea9ff0a2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.5.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrWR2dY3pJUKeR46dkrV0H8sdhhtDKquCEwxGXs4jTOY3bEIWXpwtxJLdQtAgQ0hKuvPlp1SY%2B42BxlgffDW%2BgwhYb%2BeUA12jRYcCdm0SN%2BIxQk0Tnign60I3geTjD5K0cFldR1Ul2TPI7YSsfOC07NfBeYAEqNqurV%2BirV1HNu7Su3aW4UufPTqRtI1rW1NBhGOuaSkRks9DRRSZs5fchgzufxSdVZ%2BfaFdNCrR7b6dHaFzcyk9VamJuDXVEKg%2F2svkD%2BChNxmTS40tVaZCoU%2FxYKwqIFuhQFa8EJz13IzuJWVofP7Ms3qhE5jcfX1qqlAJ9gf8LTy43zkWiliFyb05Mx6GbZ4WfWLc8A31Bm4aNYphSdyuaRULkjWt5GA0fzOHoEL3G1FD9IPBY8eSDT%2BG5xn2TEkK%2FL8%2FTm6%2FprAqT8troy67mzwdbdBL4cdCBohISngsHc31ttEJhCbmdzqeH8XOsTHVle%2BOo%2B0btdzRrq543qY46rDijbD%2FDzzDkIpw9KnZsuuqenYQwAxjDNM%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlcpYV4kahkYtBZjgWFX2P8NS82xI4HJjjBjoj6JLBGEXZS6NrYy6otvCCqQkX6L75DXeEq31x685BoLttnYWQY8UZFPU1hl9Iv7MLHf%2F8XLhsYb5WLYjwaikUzXWT3QF8D5SlUkiHcv34Znl1IOG%2Fc0d32Rw48xBoo0uoKpNER1c2bdcYfqNPS6CbEtO8Ftb3XAP95bRNqHF9oBMMtIrFqEYKnAcfkbSSEaD0CTsLHBaTeZQ44yQ1690v8M7xM0LHMtVCYwbv%2BJR41u1HmhV%2BG4RToGcW%2F%2FPgjRM12H8yebUhP5aDxOvfTcEgDKe10Z3Iya7C9HHF2BeNBtgIsUYSAK1vg%2F28sg4NVQhv1xOaObh7fp4L1c3cCAsVZku3rpsczQ78m9Ouk7f0gSQWoA6%2F26gFXXarEMyOUyyw34s5QKS8z6kgKbVUvMFu8RTTuk4OWT9Lu%2BBIbj8mb3cJ5WfVDULelnKdNoLrUKVSFk2vl94qiSEHF6ZevV6C6daaiqMY2BYWVg4EJiwnsJMrXtNwU%3D";
         window.__genspark_locale = "en-US";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrWR2dY3pJUKeR46dkrV0H8sdhhtDKquCEwxGXs4jTOY3bEIWXpwtxJLdQtAgQ0hKuvPlp1SY+42BxlgffDW+gwhYb+eUA12jRYcCdm0SN+IxQk0Tnign60I3geTjD5K0cFldR1Ul2TPI7YSsfOC07NfBeYAEqNqurV+irV1HNu7Su3aW4UufPTqRtI1rW1NBhGOuaSkRks9DRRSZs5fchgzufxSdVZ+faFdNCrR7b6dHaFzcyk9VamJuDXVEKg/2svkD+ChNxmTS40tVaZCoU/xYKwqIFuhQFa8EJz13IzuJWVofP7Ms3qhE5jcfX1qqlAJ9gf8LTy43zkWiliFyb05Mx6GbZ4WfWLc8A31Bm4aNYphSdyuaRULkjWt5GA0fzOHoEL3G1FD9IPBY8eSDT+G5xn2TEkK/L8/Tm6/prAqT8troy67mzwdbdBL4cdCBohISngsHc31ttEJhCbmdzqeH8XOsTHVle+Oo+0btdzRrq543qY46rDijbD/DzzDkIpw9KnZsuuqenYQwAxjDNM=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlcpYV4kahkYtBZjgWFX2P8NS82xI4HJjjBjoj6JLBGEXZS6NrYy6otvCCqQkX6L75DXeEq31x685BoLttnYWQY8UZFPU1hl9Iv7MLHf/8XLhsYb5WLYjwaikUzXWT3QF8D5SlUkiHcv34Znl1IOG/c0d32Rw48xBoo0uoKpNER1c2bdcYfqNPS6CbEtO8Ftb3XAP95bRNqHF9oBMMtIrFqEYKnAcfkbSSEaD0CTsLHBaTeZQ44yQ1690v8M7xM0LHMtVCYwbv+JR41u1HmhV+G4RToGcW//PgjRM12H8yebUhP5aDxOvfTcEgDKe10Z3Iya7C9HHF2BeNBtgIsUYSAK1vg/28sg4NVQhv1xOaObh7fp4L1c3cCAsVZku3rpsczQ78m9Ouk7f0gSQWoA6/26gFXXarEMyOUyyw34s5QKS8z6kgKbVUvMFu8RTTuk4OWT9Lu+BIbj8mb3cJ5WfVDULelnKdNoLrUKVSFk2vl94qiSEHF6ZevV6C6daaiqMY2BYWVg4EJiwnsJMrXtNwU=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
